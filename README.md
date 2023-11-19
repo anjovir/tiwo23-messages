@@ -12,3 +12,12 @@ Sovelluksen ominaisuuksia:
    - Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana.
    - Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
    - Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
+
+1. versio:
+   - käyttäjä pystyy kirjautumaan sivulle ja luomaan tunnuksen
+   - käyttäjä pystyy luomaan keskustelun ja ensimmäisen postauksen siihen
+   - index.html-sivulle nousee esiin general-keskustelualueen viimeisimmän viestin postausajankohta ja viestin kirjoittaja
+   - istunnoissa on käytetty ympäristömuuttujia
+   - tietokannan skeema on luotu
+   - versionhallinta gitiin luotu
+   - sivujen rakenne ja ulkoasu pitkälti luomatta
