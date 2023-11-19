@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset utf-8></meta>
+        <title>Forum</title>
+        <link rel="table" href="/css/table.css">
+    </head>
+<title>Forum</title>
+<h1>Welcome to the forum</h1>
+
+<table>
+    <tr>
+        <td>General</td>
+        <td>Number of messages: {{ count1 }}</td>
+        {% if count1 == 0 %}
+        <td>Last post: No posts</td>
+        {% else %}
+        <td>Last post: {{ last_m1[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
+            by: {{ last_m1[1] }}</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td>Topic2</td>
+        <td>Number of messages: {{ count2 }}</td>
+        {% if count2 == 0 %}
+        <td>Last post: No posts</td>
+        {% else %}
+        <td>Last post: {{ last_m2[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
+            by: {{ last_m2[1] }}</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td>Topic3</td>
+        <td>Number of messages: {{ count3 }}</td>
+        {% if count2 == 0 %}
+        <td>Last post: No posts</td>
+        {% else %}
+        <td>Last post: {{ last_m3[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
+            by: {{ last_m3[1] }}</td>
+        {% endif %}
+    </tr>
+
+</table>
+<a href="/threads">Click thread</a>
+{% if session.user_id %}
+Logged in.
+<a href="/new_thread">New thread</a> <br>
+<a href="/new">Send message</a> | <a href="/logout">Log out</a>
+{% else %}
+<a href="/login">Log in</a>
+{% endif %}
+</html>
+
+.<comment></comment>
