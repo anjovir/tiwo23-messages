@@ -13,6 +13,14 @@ Sovelluksen ominaisuuksia:
    - Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
    - Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
 
+Testaus:
+   - kopioi repositorio
+   - luo .env tiedosto, sinne tulee luoda SECRET_KEY esim. komennolla python3, import secrets, secret.token_hex(16)
+   - luo tietokanta käyttäen sql-skeemaa
+   - aja pip install -r requirements.txt
+   - venv-ympäristö käyttöön komennolla source/bin/activate
+   - testiympäristö käyttöön komennolla flask run
+
 1. versio:
    - käyttäjä pystyy kirjautumaan sivulle ja luomaan tunnuksen
    - käyttäjä pystyy luomaan keskustelun ja ensimmäisen postauksen siihen
