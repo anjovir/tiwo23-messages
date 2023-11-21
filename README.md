@@ -20,8 +20,9 @@ Testaus:
    - aja pip install -r requirements.txt
    - venv-ympäristö käyttöön komennolla source/bin/activate
    - testiympäristö käyttöön komennolla flask run
+   - sql-kantaan tulee luoda kolme aihetta topic-tauluun, "general", "politics" ja "economy"
 
-1. versio:
+Versio 0.1:
    - käyttäjä pystyy kirjautumaan sivulle ja luomaan tunnuksen
    - käyttäjä pystyy luomaan keskustelun ja ensimmäisen postauksen siihen
    - index.html-sivulle nousee esiin general-keskustelualueen viimeisimmän viestin postausajankohta ja viestin kirjoittaja
@@ -29,3 +30,14 @@ Testaus:
    - tietokannan skeema on luotu
    - versionhallinta gitiin luotu
    - sivujen rakenne ja ulkoasu pitkälti luomatta
+   - sivupohjassa ja rakenteessa hyödynnetään kurssimateriaaleja (kirjautuminen, istunnot, uuden tunnuksen luominen jne.)
+   -- https://github.com/hy-tsoha/tsoha-chat/tree/master
+
+Versio 0.2:
+   - muokattu pääsivua
+   - luotu linkit eri aihealueiden sivuille ja luotu perussivustolle
+   - poistettu threads.html-tiedosto
+   - luotu listaus keskusteluista aihealueiden sisälle
+   - lisätty css-tyylitiedosto ja määritelty mm. table-elementtejä
+   - muokattu sql-skeemaa ja lisätty mm. aikaleimasarake threads-taulukkoon
+   - siistitty koodia

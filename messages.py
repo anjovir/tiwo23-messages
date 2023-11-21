@@ -12,7 +12,6 @@ def get_list_by_topic(topic_id):
     result = db.session.execute(sql, {"topic_id":topic_id})
     return result.fetchall()
 
-
 def send(content):
     user_id = users.user_id()
     thread_id = 1
@@ -23,12 +22,11 @@ def send(content):
     db.session.commit()
     return True
 
-def newt(thread, message):
-    topic_id= 1
+def newt(thread, message,topic_id):
     user_id = users.user_id()
     if user_id == 0:
         return False
-    sql = text("INSERT INTO threads (thread, user_id, topic_id) VALUES (:thread, :user_id, :topic_id) RETURNING id")
+    sql = text("INSERT INTO threads (thread, user_id, topic_id, created_at) VALUES (:thread, :user_id, :topic_id, NOW()) RETURNING id")
     result = db.session.execute(sql, {"thread":thread, "user_id":user_id, "topic_id":topic_id})
     db.session.commit()
     thread_id = result.fetchone()[0]

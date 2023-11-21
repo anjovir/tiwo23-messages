@@ -3,14 +3,14 @@
     <head>
         <meta charset utf-8></meta>
         <title>Forum</title>
-        <link rel="table" href="/css/table.css">
+        <link rel="stylesheet" href="/static/stylesheet.css">
     </head>
 <title>Forum</title>
-<h1>Welcome to the forum</h1>
+<h1>FORUM</h1>
 
 <table>
     <tr>
-        <td>General</td>
+        <td><a href="/general">General</a></td>
         <td>Number of messages: {{ count1 }}</td>
         {% if count1 == 0 %}
         <td>Last post: No posts</td>
@@ -20,7 +20,7 @@
         {% endif %}
     </tr>
     <tr>
-        <td>Topic2</td>
+        <td><a href="/politics">Politics</a></td>
         <td>Number of messages: {{ count2 }}</td>
         {% if count2 == 0 %}
         <td>Last post: No posts</td>
@@ -30,9 +30,9 @@
         {% endif %}
     </tr>
     <tr>
-        <td>Topic3</td>
+        <td><a href="/economy">Economy</a></td>
         <td>Number of messages: {{ count3 }}</td>
-        {% if count2 == 0 %}
+        {% if count3 == 0 %}
         <td>Last post: No posts</td>
         {% else %}
         <td>Last post: {{ last_m3[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
@@ -41,14 +41,14 @@
     </tr>
 
 </table>
-<a href="/threads">Click thread</a>
+<br>
 {% if session.user_id %}
 Logged in.
-<a href="/new_thread">New thread</a> <br>
-<a href="/new">Send message</a> | <a href="/logout">Log out</a>
+<br>
+<br>
+<a href="/new_thread">New thread</a> | <a href="/new">Send message</a> | <a href="/logout">Log out</a>
 {% else %}
+<br>
 <a href="/login">Log in</a>
 {% endif %}
 </html>
-
-.<comment></comment>
