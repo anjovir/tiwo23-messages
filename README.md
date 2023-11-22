@@ -21,6 +21,7 @@ Testaus:
    - venv-ympäristö käyttöön komennolla source/bin/activate
    - testiympäristö käyttöön komennolla flask run
    - sql-kantaan tulee luoda kolme aihetta topic-tauluun, "general", "politics" ja "economy"
+   - sovellus alkaa toimia järkevämmin, kun luo ensimmäisen keskusteluketjun jokaisen aiheen alle
 
 Versio 0.1:
    - käyttäjä pystyy kirjautumaan sivulle ja luomaan tunnuksen
@@ -41,3 +42,9 @@ Versio 0.2:
    - lisätty css-tyylitiedosto ja määritelty mm. table-elementtejä
    - muokattu sql-skeemaa ja lisätty mm. aikaleimasarake threads-taulukkoon
    - siistitty koodia
+
+Versio 0.2.1
+   - korjattu alkutilanne, jossa tietokantaan ei ole lisätty viestejä
+   - lisätty thread.html viestien näyttämistä varten
+   - muokattu sivujen index.html ja general.html ulkoasua
+   - lisätty sivulle general.html viestien määrän laskuri

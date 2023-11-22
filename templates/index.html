@@ -11,7 +11,9 @@
 <table>
     <tr>
         <td><a href="/general">General</a></td>
-        <td>Number of messages: {{ count1 }}</td>
+        <td>Number of threads: {{ count_threads1 }} <br>
+            Number of messages: {{ count1 }}
+        </td>
         {% if count1 == 0 %}
         <td>Last post: No posts</td>
         {% else %}
@@ -21,7 +23,9 @@
     </tr>
     <tr>
         <td><a href="/politics">Politics</a></td>
-        <td>Number of messages: {{ count2 }}</td>
+        <td>Number of threads: {{ count_threads2 }} <br>
+            Number of messages: {{ count2 }}
+        </td>
         {% if count2 == 0 %}
         <td>Last post: No posts</td>
         {% else %}
@@ -31,7 +35,9 @@
     </tr>
     <tr>
         <td><a href="/economy">Economy</a></td>
-        <td>Number of messages: {{ count3 }}</td>
+        <td>Number of threads: {{ count_threads3 }} <br>
+            Number of messages: {{ count3 }}
+        </td>
         {% if count3 == 0 %}
         <td>Last post: No posts</td>
         {% else %}

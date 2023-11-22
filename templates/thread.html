@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset utf-8></meta>
+        <title>Forum</title>
+        <link rel="stylesheet" href="/static/stylesheet.css">
+    </head>
+
+<h2></h2>
+Number of messages: {{ count }}
+<hr>
+{% for message in messages %}
+<i>Message:</i> {{ message[0] }}
+<p>
+<i>Created by:</i> {{ message[1] }}
+<p>
+<i>Created at:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+<hr>
+{% endfor %}
+{% if session.user_id %}
+Logged in.
+<br>
+<br>
+<a href="/">Main page</a> | <a href="/new_thread">New thread</a> | <a href="/logout">Log out</a>
+{% else %}
+<a href="/login">Log in</a>
+{% endif %}
+
+</html>

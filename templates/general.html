@@ -1,14 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset utf-8></meta>
+        <title>Forum</title>
+        <link rel="stylesheet" href="/static/stylesheet.css">
+    </head>
+
 <h2>GENERAL</h2>
-Number of threads: {{ count }}
-<hr>
-{% for thread in threads %}
-<i>Thread:</i> {{ thread[0] }}
-<p>
-<i>Created by:</i> {{ thread[1] }}
-<p>
-<i>Created at:</i> {{ thread[2].strftime("%Y-%m-%d %H:%M:%S") }}
-<hr>
-{% endfor %}
+<table>
+    <tr>
+        <td><b>Subject / Started by:</b></td>
+        <td><b>Messages</b></td>
+        <td><b>Last post</b></td>
+    </tr>
+
+    {% for thread in threads %}
+    <tr>
+        <td>
+            {{ thread[0] }} / <br>
+            {{ thread[1] }}
+        </td>
+        <td>{{ m_count[thread[4]]}}</td>
+        <td>{{ last_m[thread[4]][2].strftime("%Y-%m-%d %H:%M:%S") }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+<br>
 {% if session.user_id %}
 Logged in.
 <br>
@@ -17,3 +35,5 @@ Logged in.
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}
+
+</html>

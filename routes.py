@@ -1,24 +1,38 @@
 from app import app
 from flask import render_template, request, redirect
 import messages, users, threads
+from datetime import datetime
 
 @app.route("/")
 def index():
     list1 = messages.get_list_by_topic(1)
     list2 = messages.get_list_by_topic(2)
     list3 = messages.get_list_by_topic(3)
+    default = ('0', 'default', datetime(2023, 11, 11, 00, 00, 00, 000000), 1)
 
     #intial situation, if no topics and messages added to db
-    if len(list1) == 0:
-        return render_template("index.html", count1=len(list1), count2=len(list2), count3=len(list3))
-    return render_template("index.html", count1=len(list1), last_m1=list1[-1],
-                           count2=len(list2), last_m2=list2[-1], 
-                           count3=len(list3), last_m3=list1[-1])
+    if len(list1) == 0 or len(list2) == 0 or len(list3) == 0:
+        return render_template("index.html", count1=len(list1), last_m1=default,
+                               count2=len(list2), last_m2=default,
+                               count3=len(list3), last_m3=default)
+    return render_template("index.html", 
+                           count_threads1= len(threads.get_list(1)), count1=len(list1), last_m1=list1[-1],
+                           count_threads2=len(threads.get_list(2)), count2=len(list2), last_m2=list2[-1], 
+                            count_threads3=len(threads.get_list(3)), count3=len(list3), last_m3=list3[-1])
 
 @app.route("/general")
 def general():
-    list = threads.get_list(1)
-    return render_template("general.html", count=len(list), threads=list)
+    list_t = threads.get_list(1)
+    last_m_list = {}
+    m_list = {}
+
+    for thread in list_t:
+        m_list[thread[4]] = (messages.count_messages(thread[4]))[0]
+        last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
+
+    return render_template("general.html", 
+                           threads=list_t,
+                           m_count=m_list, last_m=last_m_list)
 
 @app.route("/politics")
 def politics():
@@ -29,6 +43,21 @@ def politics():
 def economy():
     list = threads.get_list(3)
     return render_template("economy.html", count=len(list), threads=list)
+
+@app.route("/thread")
+def thread():
+    list = messages.get_list_by_thread(2)
+    return render_template("thread.html",count=len(list), messages=list)
+
+@app.route("/send_thread_id", methods=["POST"])
+def thread_id():
+    thread_id = request.form["thread_id"]
+    list = messages.get_list_by_thread(thread_id)
+    if messages.send(content):
+        return redirect("/thread")
+    else:
+        return render_template("error.html", message="Failed to send the message")
+
 
 @app.route("/new")
 def new():

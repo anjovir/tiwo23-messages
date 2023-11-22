@@ -8,9 +8,25 @@ def get_list():
     return result.fetchall()
 
 def get_list_by_topic(topic_id):
-    sql = text("SELECT M.content, U.username, M.sent_at, M.topic_id FROM messages M, users U WHERE M.user_id=U.id AND M.topic_id=:topic_id  ORDER BY M.id")
+    sql = text("""SELECT M.content, U.username, M.sent_at, M.topic_id
+               FROM messages M, users U 
+               WHERE M.user_id=U.id AND M.topic_id=:topic_id 
+               ORDER BY M.id""")
     result = db.session.execute(sql, {"topic_id":topic_id})
     return result.fetchall()
+
+def get_list_by_thread(thread_id):
+    sql = text("""SELECT M.content, U.username, M.sent_at, M.thread_id
+               FROM messages M, users U 
+               WHERE M.user_id=U.id AND M.thread_id=:thread_id 
+               ORDER BY M.id""")
+    result = db.session.execute(sql, {"thread_id":thread_id})
+    return result.fetchall()
+
+def count_messages(thread_id):
+    sql = text("SELECT COUNT(*) FROM threads WHERE id=:thread_id")
+    result = db.session.execute(sql, {"thread_id":thread_id})
+    return result.fetchone()
 
 def send(content):
     user_id = users.user_id()
