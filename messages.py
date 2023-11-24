@@ -16,7 +16,7 @@ def get_list_by_topic(topic_id):
     return result.fetchall()
 
 def get_list_by_thread(thread_id):
-    sql = text("""SELECT M.content, U.username, M.sent_at, M.thread_id
+    sql = text("""SELECT M.content, U.username, M.sent_at, M.thread_id, M.topic_id
                FROM messages M, users U 
                WHERE M.user_id=U.id AND M.thread_id=:thread_id 
                ORDER BY M.id""")
@@ -28,13 +28,12 @@ def count_messages(thread_id):
     result = db.session.execute(sql, {"thread_id":thread_id})
     return result.fetchone()
 
-def send(content):
+def send(content, thread_id, topic_id):
     user_id = users.user_id()
-    thread_id = 1
     if user_id == 0:
         return False
-    sql = text("INSERT INTO messages (content, user_id, sent_at, thread_id) VALUES (:content, :user_id, NOW())")
-    db.session.execute(sql, {"content":content, "user_id":user_id, "thread_id":thread_id})
+    sql = text("INSERT INTO messages (content, user_id, sent_at, thread_id, topic_id) VALUES (:content, :user_id, NOW(), :thread_id, :topic_id)")
+    db.session.execute(sql, {"content":content, "user_id":user_id, "thread_id":thread_id, "topic_id":topic_id})
     db.session.commit()
     return True
 

@@ -17,13 +17,31 @@ Number of messages: {{ count }}
 <i>Created at:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
 <hr>
 {% endfor %}
+
 {% if session.user_id %}
+
+<h3>Send message</h3>
+<form action="/send" method="POST">
+    Message: <br>
+    <textarea name="content" rows="3" cols="40"></textarea>
+    <br>
+    <input type="submit" value="Send">
+    <input type="hidden" name="thread_id" value="{{ messages[0][3]  }}">
+    <input type="hidden" name="topic_id" value="{{ messages[0][4] }}">
+</form>
+<br>
 Logged in.
 <br>
 <br>
-<a href="/">Main page</a> | <a href="/new_thread">New thread</a> | <a href="/logout">Log out</a>
+<a href="/logout">Log out</a>
+
 {% else %}
+
 <a href="/login">Log in</a>
+
 {% endif %}
+
+<br>
+<a href="/">Main page</a> 
 
 </html>

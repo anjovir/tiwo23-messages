@@ -60,8 +60,12 @@ def new():
 @app.route("/send", methods=["POST"])
 def send():
     content = request.form["content"]
-    if messages.send(content):
-        return redirect("/")
+    thread_id = request.form["thread_id"]
+    topic_id = request.form["topic_id"]
+    print(thread_id)
+    print(topic_id)
+    if messages.send(content, thread_id, topic_id):
+        return redirect(f"/thread?thread_id={thread_id}")
     else:
         return render_template("error.html", message="Failed to send the message")
     

@@ -52,3 +52,6 @@ Versio 0.2.1
 Versio 0.2.2
    - lisätty siirtyminen keskusteluketjusta itse keskusteluun
 
+Versio 0.2.3
+   - lisätty mahdollisuus lähettää viesti keskusteluketjuun
+   - päivitetty sivujen tekstejä
