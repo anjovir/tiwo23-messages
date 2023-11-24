@@ -5,27 +5,28 @@
         <title>Forum</title>
         <link rel="stylesheet" href="/static/stylesheet.css">
     </head>
-
+<body>
 <h2>GENERAL</h2>
 <table>
-    <tr>
+    <thead>
         <td><b>Subject / Started by:</b></td>
         <td><b>Messages</b></td>
         <td><b>Last post</b></td>
-    </tr>
-
+    </thead>
+    <tbody>
     {% for thread in threads %}
     <tr>
         <td>
-            {{ thread[0] }} / <br>
+            <a href="{{ links[thread[4]].url }}">{{ links[thread[4]].name }}</a> / <br>
             {{ thread[1] }}
         </td>
         <td>{{ m_count[thread[4]]}}</td>
         <td>{{ last_m[thread[4]][2].strftime("%Y-%m-%d %H:%M:%S") }}</td>
     </tr>
     {% endfor %}
-
+    </tbody>
 </table>
+<br>
 <br>
 {% if session.user_id %}
 Logged in.
@@ -35,5 +36,5 @@ Logged in.
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}
-
+</body>
 </html>

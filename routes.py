@@ -25,14 +25,18 @@ def general():
     list_t = threads.get_list(1)
     last_m_list = {}
     m_list = {}
+    links_t = {}
 
     for thread in list_t:
         m_list[thread[4]] = (messages.count_messages(thread[4]))[0]
         last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
+        links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
+        
 
     return render_template("general.html", 
                            threads=list_t,
-                           m_count=m_list, last_m=last_m_list)
+                           m_count=m_list, last_m=last_m_list,
+                           links=links_t)
 
 @app.route("/politics")
 def politics():
@@ -46,18 +50,8 @@ def economy():
 
 @app.route("/thread")
 def thread():
-    list = messages.get_list_by_thread(2)
+    list = messages.get_list_by_thread(request.args.get("thread_id"))
     return render_template("thread.html",count=len(list), messages=list)
-
-@app.route("/send_thread_id", methods=["POST"])
-def thread_id():
-    thread_id = request.form["thread_id"]
-    list = messages.get_list_by_thread(thread_id)
-    if messages.send(content):
-        return redirect("/thread")
-    else:
-        return render_template("error.html", message="Failed to send the message")
-
 
 @app.route("/new")
 def new():
