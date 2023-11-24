@@ -32,7 +32,7 @@ Versio 0.1:
    - versionhallinta gitiin luotu
    - sivujen rakenne ja ulkoasu pitkälti luomatta
    - sivupohjassa ja rakenteessa hyödynnetään kurssimateriaaleja (kirjautuminen, istunnot, uuden tunnuksen luominen jne.)
-   -- https://github.com/hy-tsoha/tsoha-chat/tree/master
+   - https://github.com/hy-tsoha/tsoha-chat/tree/master
 
 Versio 0.2:
    - muokattu pääsivua
@@ -48,3 +48,7 @@ Versio 0.2.1
    - lisätty thread.html viestien näyttämistä varten
    - muokattu sivujen index.html ja general.html ulkoasua
    - lisätty sivulle general.html viestien määrän laskuri
+
+Versio 0.2.2
+   - lisätty siirtyminen keskusteluketjusta itse keskusteluun
+
