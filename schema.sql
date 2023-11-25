@@ -1,7 +1,8 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
-    password TEXT
+    password TEXT,
+    role TEXT
 );
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
@@ -23,4 +24,9 @@ CREATE TABLE threads (
     created_at TIMESTAMP,
     topic_id INTEGER REFERENCES topics,
     user_id INTEGER REFERENCES users
+);
+
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    role TEXT,
 );
