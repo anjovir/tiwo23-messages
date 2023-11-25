@@ -32,7 +32,6 @@ def general():
         last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
         links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
         
-
     return render_template("general.html", 
                            threads=list_t,
                            m_count=m_list, last_m=last_m_list,
@@ -50,7 +49,6 @@ def politics():
         last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
         links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
         
-
     return render_template("politics.html", 
                            threads=list_t,
                            m_count=m_list, last_m=last_m_list,
@@ -68,7 +66,6 @@ def economy():
         last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
         links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
         
-
     return render_template("economy.html", 
                            threads=list_t,
                            m_count=m_list, last_m=last_m_list,
@@ -77,7 +74,8 @@ def economy():
 @app.route("/thread")
 def thread():
     list = messages.get_list_by_thread(request.args.get("thread_id"))
-    return render_template("thread.html",count=len(list), messages=list)
+    thread = threads.get_thread(request.args.get("thread_id"))
+    return render_template("thread.html",count=len(list), messages=list, thread=thread)
 
 @app.route("/new")
 def new():
