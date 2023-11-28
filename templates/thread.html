@@ -12,19 +12,39 @@
         <p><i>Message:</i> {{ message[0] }}</p>
         <i>By:</i> {{ message[1] }}
         <i>On:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+        
+        {% if session.user_id == message[5] %}
+            <form action="/edit" method="POST">
+                <input type="hidden" name="m_id" value="{{ message[6] }}">
+                <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                <button type="submit">Edit message</button>
+            </form>
+        {% endif %}
+        
         <hr>
         {% endfor %}
 
         {% if session.user_id %}
-
-        <h3>Send message</h3>
-        <form action="/send" method="POST">
+        {% if m_edit is not none %}
+        <h3>Edit message</h3>
+        <form action="/edit_message" method="POST">
             Message: <br>
+            <textarea name="content" rows="3" cols="40">{{ m_edit[0] }}</textarea>
+            <br>
+            <input type="submit" value="Update">
+            <input type="hidden" name="thread_id" value="{{ messages[0][3] }}">
+            <input type="hidden" name="m_id" value="{{ m_edit[1] }}">
+            {% else %}
+        <h3>Reply</h3>
+        <form action="/send" method="POST">
+                Message: <br>
             <textarea name="content" rows="3" cols="40"></textarea>
+            
             <br>
             <input type="submit" value="Send">
             <input type="hidden" name="thread_id" value="{{ messages[0][3]  }}">
             <input type="hidden" name="topic_id" value="{{ messages[0][4] }}">
+            {% endif %}
         </form>
         <br>
     </body>

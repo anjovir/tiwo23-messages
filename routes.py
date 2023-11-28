@@ -75,19 +75,14 @@ def economy():
 def thread():
     list = messages.get_list_by_thread(request.args.get("thread_id"))
     thread = threads.get_thread(request.args.get("thread_id"))
-    return render_template("thread.html",count=len(list), messages=list, thread=thread)
-
-@app.route("/new")
-def new():
-    return render_template("new.html")
+    return render_template("thread.html",count=len(list), messages=list, thread=thread, m_edit=None)
 
 @app.route("/send", methods=["POST"])
 def send():
     content = request.form["content"]
     thread_id = request.form["thread_id"]
     topic_id = request.form["topic_id"]
-    print(thread_id)
-    print(topic_id)
+
     if messages.send(content, thread_id, topic_id):
         return redirect(f"/thread?thread_id={thread_id}")
     else:
@@ -107,6 +102,28 @@ def newt():
         return redirect("/")
     else:
         return render_template("error.html", message="Failed to send the message")
+
+@app.route("/edit", methods=["POST"])
+def edit():
+    m_id = request.form["m_id"]
+    thread_id = request.form["t_id"]
+    message = messages.get_message(m_id)
+    list = messages.get_list_by_thread(thread_id)
+    thread = threads.get_thread(thread_id)
+    return render_template("thread.html", count=len(list), messages=list, thread=thread, m_edit=message)
+
+@app.route("/edit_message", methods=["POST"])
+def edit_message():
+    thread_id = request.form["thread_id"]
+    content = request.form["content"]
+    m_id = int(request.form["m_id"])
+    
+    if messages.edit_m(m_id, content):
+        return redirect(f"/thread?thread_id={thread_id}")
+        
+    else:
+        return render_template("error.html", message="Failed to send the message")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
