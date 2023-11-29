@@ -7,67 +7,99 @@
     </head>
     <body>
         <h2>{{ thread[0] }}</h2>
+        {% if session.user_id == thread[3] %}
+        <div style="display: flex;">
+            <form action="/edit_t" method="POST">
+                <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                <input type="hidden" name="thread" value="{{ thread[0]  }}">
+                <button type="submit">Edit thread</button>
+            </form>
+
+            <form action="/delete_thread" method="POST">
+                <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                <button type="submit">Delete thread</button>
+            </form>
+        </div>
+        {% endif %}
         <hr>
         {% for message in messages %}
         <p><i>Message:</i> {{ message[0] }}</p>
         <i>By:</i> {{ message[1] }}
         <i>On:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
         
-        {% if session.user_id == message[5] %}
-        <div style="display: flex;">
-            <form action="/edit" method="POST">
-                <input type="hidden" name="m_id" value="{{ message[6] }}">
-                <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
-                <button type="submit">Edit message</button>
-            </form>
+            {% if session.user_id == message[5] %}
+            <div style="display: flex;">
+                <form action="/edit" method="POST">
+                    <input type="hidden" name="m_id" value="{{ message[6] }}">
+                    <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                    <button type="submit">Edit message</button>
+                </form>
 
-            <form action="/delete_message" method="POST">
-                <input type="hidden" name="m_id" value="{{ message[6] }}">
-                <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
-                <button type="submit">Delete message</button>
-            </form>
-        </div>
-        {% endif %}
-        
+                <form action="/delete_message" method="POST">
+                    <input type="hidden" name="m_id" value="{{ message[6] }}">
+                    <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                    <button type="submit">Delete message</button>
+                </form>
+            </div>
+            {% endif %}
         <hr>
         {% endfor %}
 
         {% if session.user_id %}
-        {% if m_edit is not none %}
-        <h3>Edit message</h3>
-        <form action="/edit_message" method="POST">
-            Message: <br>
-            <textarea name="content" rows="3" cols="40">{{ m_edit[0] }}</textarea>
-            <br>
-            <input type="submit" value="Update">
-            <input type="hidden" name="thread_id" value="{{ messages[0][3] }}">
-            <input type="hidden" name="m_id" value="{{ m_edit[1] }}">
-            {% else %}
-        <h3>Reply</h3>
-        <form action="/send" method="POST">
+            {% if edit_t is not none %}
+
+            <h3>Edit thread</h3>
+            <form action="/edit_thread" method="POST">
                 Message: <br>
-            <textarea name="content" rows="3" cols="40"></textarea>
+                <textarea name="thread" rows="1" cols="30">{{ edit_t[0] }}</textarea>
+                <br>
+                <input type="submit" value="Update">
+                <input type="hidden" name="t_id" value="{{ messages[0][3] }}">
+            </form>
             
-            <br>
-            <input type="submit" value="Send">
-            <input type="hidden" name="thread_id" value="{{ messages[0][3]  }}">
-            <input type="hidden" name="topic_id" value="{{ messages[0][4] }}">
-            {% endif %}
-        </form>
+            {% else %}
+                {% if m_edit is not none %}
+
+                <h3>Edit message</h3>
+                <form action="/edit_message" method="POST">
+                    Message: <br>
+                    <textarea name="content" rows="3" cols="40">{{ m_edit[0] }}</textarea>
+                    <br>
+                    <input type="submit" value="Update">
+                    <input type="hidden" name="thread_id" value="{{ messages[0][3] }}">
+                    <input type="hidden" name="m_id" value="{{ m_edit[1] }}">
+                </form>
+
+                {% else %}
+
+                <h3>Reply</h3>
+                <form action="/send" method="POST">
+                        Message: <br>
+                    <textarea name="content" rows="3" cols="40"></textarea>
+                    
+                    <br>
+                    <input type="submit" value="Send">
+                    <input type="hidden" name="thread_id" value="{{ messages[0][3]  }}">
+                    <input type="hidden" name="topic_id" value="{{ messages[0][4] }}">
+                </form>
+
+                {% endif %}
+            {% endif%}
+                
         <br>
+    
+        Logged in.
+        <br>
+        <br>
+        <a href="/logout">Log out</a>
+
+        {% else %}
+
+        <a href="/login">Log in</a>
+
+        {% endif %}
+
+        <br>
+        <a href="/">Main page</a> 
     </body>
-Logged in.
-<br>
-<br>
-<a href="/logout">Log out</a>
-
-{% else %}
-
-<a href="/login">Log in</a>
-
-{% endif %}
-
-<br>
-<a href="/">Main page</a> 
-
 </html>

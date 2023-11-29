@@ -71,3 +71,7 @@ Versio 0.2.6
 
 Versio 0.2.6.1.
    - muokattu sivujen ulkoasua, siirretty nappien paikkaa
+
+Versio 0.2.7.
+   - lisätty mahdollisuus muokata keskustelun otsikkoa
+   - lisätty myös delete nappi tälle, mutta ei funktiota

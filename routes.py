@@ -75,7 +75,7 @@ def economy():
 def thread():
     list = messages.get_list_by_thread(request.args.get("thread_id"))
     thread = threads.get_thread(request.args.get("thread_id"))
-    return render_template("thread.html",count=len(list), messages=list, thread=thread, m_edit=None)
+    return render_template("thread.html",count=len(list), messages=list, thread=thread, m_edit=None, edit_t=None)
 
 @app.route("/send", methods=["POST"])
 def send():
@@ -110,7 +110,7 @@ def edit():
     message = messages.get_message(m_id)
     list = messages.get_list_by_thread(thread_id)
     thread = threads.get_thread(thread_id)
-    return render_template("thread.html", count=len(list), messages=list, thread=thread, m_edit=message)
+    return render_template("thread.html", count=len(list), messages=list, thread=thread, m_edit=message, edit_t=None)
 
 @app.route("/edit_message", methods=["POST"])
 def edit_message():
@@ -133,8 +133,23 @@ def delete_message():
     else:
         return render_template("error.html", message="Failed to delete the message")
 
+@app.route("/edit_t", methods=["POST"])
+def edit_t():
+    thread_id = request.form["t_id"]
+    list = messages.get_list_by_thread(thread_id)
+    thread = threads.get_thread(thread_id)
+    return render_template("thread.html", count=len(list), messages=list, thread=thread, edit_t=thread, m_edit=None)
 
+@app.route("/edit_thread", methods=["POST"])
+def edit_thread():
+    thread_id = request.form["t_id"]
+    thread = request.form["thread"]
 
+    if threads.edit_t(thread_id, thread):
+        return redirect(f"/thread?thread_id={thread_id}")
+    else:
+        return render_template("error.html", message="Failed to edit thread name")
+    
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":

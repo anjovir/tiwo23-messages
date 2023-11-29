@@ -8,6 +8,15 @@ def get_list(topic_id):
     return result.fetchall()
 
 def get_thread(thread_id):
-    sql = text("SELECT T.thread, U.username, T.created_at FROM threads T, users U WHERE T.user_id=U.id AND T.id=:thread_id ORDER BY T.id")
+    sql = text("SELECT T.thread, U.username, T.created_at, U.id FROM threads T, users U WHERE T.user_id=U.id AND T.id=:thread_id ORDER BY T.id")
     result = db.session.execute(sql, {"thread_id":thread_id})
     return result.fetchone()
+
+def edit_t(t_id, thread):
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    sql = text("UPDATE threads SET thread=:thread, created_at=NOW() WHERE id=:t_id")
+    db.session.execute(sql, {"thread":thread, "t_id":t_id})
+    db.session.commit()
+    return True
