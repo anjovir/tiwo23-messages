@@ -68,3 +68,6 @@ Versio 0.2.5
 Versio 0.2.6
    - lisätty mahdollisuus poistaa lähetetty viesti
    - muutettu skeeman luonnin järjestystä
+
+Versio 0.2.6.1.
+   - muokattu sivujen ulkoasua, siirretty nappien paikkaa

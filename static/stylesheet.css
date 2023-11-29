@@ -36,3 +36,9 @@ html {
   caption {
     padding: 10px;
   }
+
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
