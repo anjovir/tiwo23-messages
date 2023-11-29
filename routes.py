@@ -120,9 +120,19 @@ def edit_message():
     
     if messages.edit_m(m_id, content):
         return redirect(f"/thread?thread_id={thread_id}")
-        
     else:
-        return render_template("error.html", message="Failed to send the message")
+        return render_template("error.html", message="Failed to edit the message")
+
+@app.route("/delete_message", methods=["POST"])
+def delete_message():
+    m_id = request.form["m_id"]
+    thread_id = request.form["t_id"]
+
+    if messages.delete_m(m_id):
+        return redirect(f"/thread?thread_id={thread_id}")
+    else:
+        return render_template("error.html", message="Failed to delete the message")
+
 
 
 @app.route("/login", methods=["GET", "POST"])

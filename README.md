@@ -4,14 +4,17 @@ Sovelluksessa näkyy keskustelualueita, joista jokaisella on tietty aihe. Alueil
 
 Sovelluksen ominaisuuksia:
 
-   - Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-   - Käyttäjä näkee sovelluksen etusivulla listan alueista sekä jokaisen alueen ketjujen ja viestien määrän ja viimeksi lähetetyn viestin ajankohdan.
-   - Käyttäjä voi luoda alueelle uuden ketjun antamalla ketjun otsikon ja aloitusviestin sisällön.
-   - Käyttäjä voi kirjoittaa uuden viestin olemassa olevaan ketjuun.
-   - Käyttäjä voi muokata luomansa ketjun otsikkoa sekä lähettämänsä viestin sisältöä. Käyttäjä voi myös poistaa ketjun tai viestin.
-   - Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana.
-   - Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
-   - Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
+   1. Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
+   2. Käyttäjä näkee sovelluksen etusivulla listan alueista sekä jokaisen alueen ketjujen ja viestien määrän ja viimeksi lähetetyn viestin ajankohdan.
+   3. Käyttäjä voi luoda alueelle uuden ketjun antamalla ketjun otsikon ja aloitusviestin sisällön.
+   4. Käyttäjä voi kirjoittaa uuden viestin olemassa olevaan ketjuun.
+   5. Käyttäjä voi muokata luomansa ketjun otsikkoa sekä lähettämänsä viestin sisältöä. Käyttäjä voi myös poistaa ketjun tai viestin.
+   6. Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana.
+   7. Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
+   8. Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
+
+Valmiina:
+   - Kohdat 1-4
 
 Testaus:
    - kopioi repositorio
@@ -58,3 +61,10 @@ Versio 0.2.3
 
 Versio 0.2.4
    - laajennettu viestimahdollisuus kaikkiin aihealueisiin
+
+Versio 0.2.5
+   - lisätty editointimahdollisuus viesteihin
+
+Versio 0.2.6
+   - lisätty mahdollisuus poistaa lähetetty viesti
+   - muutettu skeeman luonnin järjestystä

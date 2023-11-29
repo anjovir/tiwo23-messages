@@ -19,6 +19,12 @@
                 <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
                 <button type="submit">Edit message</button>
             </form>
+
+            <form action="/delete_message" method="POST">
+                <input type="hidden" name="m_id" value="{{ message[6] }}">
+                <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                <button type="submit">Delete message</button>
+            </form>
         {% endif %}
         
         <hr>

@@ -63,5 +63,13 @@ def edit_m(m_id, content):
     db.session.execute(sql, {"content":content, "m_id":m_id})
     db.session.commit()
     return True
-    
+
+def delete_m(m_id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    sql = text("DELETE FROM messages WHERE id=:m_id")
+    db.session.execute(sql, {"m_id":m_id})
+    db.session.commit()
+    return True
     
