@@ -14,17 +14,18 @@ Sovelluksen ominaisuuksia:
    8. Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
 
 Valmiina:
-   - Kohdat 1-4
+   - Kohdat 1-5
 
 Testaus:
    - kopioi repositorio
-   - luo .env tiedosto, sinne tulee luoda SECRET_KEY esim. komennolla python3, import secrets, secret.token_hex(16)
-   - luo tietokanta käyttäen sql-skeemaa
+   - luo .env tiedosto, sinne tulee luoda SECRET_KEY esim. komennolla python3 -> import secrets -> secret.token_hex(16)
+   - lisäksi sinne tulee määrittää tietokannan osoite, esim. DATABASE_URL="postgresql:///your_db_name"
+   - Admin-käyttäjän salasana tulee myös lisä .env-tiedostoon, kohtaan ADMIN_PASSWORD="oma_salasana"
+   - venv-ympäristö käyttöön komennolla python3 -m venv venv -> source/bin/activate
    - aja pip install -r requirements.txt
-   - venv-ympäristö käyttöön komennolla source/bin/activate
+   - luo tietokanta käyttäen sql-skeemaa: psql < schema.sql
    - testiympäristö käyttöön komennolla flask run
-   - sql-kantaan tulee luoda kolme aihetta topic-tauluun, "general", "politics" ja "economy"
-   - sovellus alkaa toimia järkevämmin, kun luo ensimmäisen keskusteluketjun jokaisen aiheen alle
+
 
 Versio 0.1:
    - käyttäjä pystyy kirjautumaan sivulle ja luomaan tunnuksen
@@ -80,3 +81,10 @@ Versio 0.3
    - lisätty mahdollisuus deletoida keskusteluketju
    - muokattu SQL-skeemaa siten, että deletointi mahdollistuu
    - SQL-skeema pitäisi toimia paremmin setup-vaiheessa
+
+Versio 0.3.1
+   - luotu salasana vaihtosivu, tietoturva ei siinä vielä kunnossa
+
+Versio 0.3.2
+   - luotu huono tapa, jolla luodaan admin-käyttäjä, mikäli sitä ei ole jo luotu
+   - ympäristömuuttuja määritetty admin-salasanalle

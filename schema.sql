@@ -29,9 +29,11 @@ CREATE TABLE messages (
 
 CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
-    role TEXT,
+    role TEXT
 );
 
 INSERT INTO topics (topic) VALUES ('general');
 INSERT INTO topics (topic) VALUES ('politics');
 INSERT INTO topics (topic) VALUES ('economy');
+INSERT INTO roles (role) VALUES ('user');
+INSERT INTO roles (role) VALUES ('admin');

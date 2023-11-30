@@ -1,0 +1,12 @@
+{% if session.user_id %}
+<form action="/change_password" method="POST">
+    Password: <input type="text" name="password0">
+    <p>
+    New password: <input type="password" name="password1">
+    <p>
+    New password again: <input type="password" name="password2">
+    <p>
+    <input type="submit" value="Change password">
+    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+    </form>
+{% endif %}

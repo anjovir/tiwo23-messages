@@ -3,8 +3,13 @@ from flask import render_template, request, redirect
 import messages, users, threads
 from datetime import datetime
 
+
+
+
 @app.route("/")
 def index():
+    users.create_admin()
+
     list1 = messages.get_list_by_topic(1)
     list2 = messages.get_list_by_topic(2)
     list3 = messages.get_list_by_topic(3)
@@ -184,8 +189,28 @@ def register():
         password1 = request.form["password1"]
         password2 = request.form["password2"]
         if password1 != password2:
-            return render_template("error.html", message="Salasanat eroavat")
+            return render_template("error.html", message="Passwords differ")
         if users.register(username, password1):
             return redirect("/")
         else:
-            return render_template("error.html", message="Rekisteröinti ei onnistunut")
+            return render_template("error.html", message="Registration failed")
+        
+@app.route("/change_password", methods=["GET", "POST"])
+def change_password():
+    if request.method == "GET":
+        return render_template("user.html")
+    if request.method == "POST":
+        user_id = request.form["user_id"]
+        password0 = request.form["password0"]
+        password1 = request.form["password1"]
+        password2 = request.form["password2"]
+        if password1 != password2:
+            return render_template("error.html", message="Passwords differ")
+        if users.change_password(user_id,password0,password1):
+            return redirect("/")
+        else:
+            return render_template("error.html", message="Changing password failed")
+
+
+
+
