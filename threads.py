@@ -20,3 +20,12 @@ def edit_t(t_id, thread):
     db.session.execute(sql, {"thread":thread, "t_id":t_id})
     db.session.commit()
     return True
+
+def delete_t(t_id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    sql = text("DELETE FROM threads WHERE id=:t_id")
+    db.session.execute(sql, {"t_id":t_id})
+    db.session.commit()
+    return True

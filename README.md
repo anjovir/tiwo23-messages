@@ -75,3 +75,8 @@ Versio 0.2.6.1.
 Versio 0.2.7.
    - lisätty mahdollisuus muokata keskustelun otsikkoa
    - lisätty myös delete nappi tälle, mutta ei funktiota
+
+Versio 0.3
+   - lisätty mahdollisuus deletoida keskusteluketju
+   - muokattu SQL-skeemaa siten, että deletointi mahdollistuu
+   - SQL-skeema pitäisi toimia paremmin setup-vaiheessa

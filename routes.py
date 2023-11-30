@@ -149,7 +149,15 @@ def edit_thread():
         return redirect(f"/thread?thread_id={thread_id}")
     else:
         return render_template("error.html", message="Failed to edit thread name")
-    
+
+@app.route("/delete_thread", methods=["POST"])
+def delete_thread():
+    thread_id = request.form["t_id"]
+    if threads.delete_t(thread_id):
+        return redirect("/")
+    else:
+        return render_template("error.html", message="Failed to delete the message")
+ 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
