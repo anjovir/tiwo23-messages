@@ -51,13 +51,13 @@ def create_admin():
     admin_username = "admin"
     admin_password = getenv("ADMIN_PASSWORD")
 
-    sql = text("SELECT id FROM users WHERE role='admin'")
+    sql = text("SELECT id FROM users WHERE role_id='2'")
     result = db.session.execute(sql)
     id = result.fetchone()
 
     if id is None:
         hash_value = generate_password_hash(admin_password)
-        sql = text("INSERT INTO users (username,password,role) VALUES (:username,:password,'admin')")
+        sql = text("INSERT INTO users (username,password,role_id) VALUES (:username,:password,'2')")
         db.session.execute(sql, {"username":admin_username, "password":hash_value})
         db.session.commit()
 

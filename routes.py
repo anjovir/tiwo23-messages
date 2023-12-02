@@ -7,6 +7,9 @@ from datetime import datetime
 
 @app.route("/")
 def index():
+    #will create admin, if not already created
+    users.create_admin()
+
     topics = messages.get_topics_list()
     last_m_list = {}
     m_count = {}
@@ -15,10 +18,20 @@ def index():
 
     for topic in topics:
         m_count[topic[0]] = len(messages.get_list_by_topic(topic[0]))
-        last_m_list[topic[0]] = messages.get_list_by_topic(topic[0])[-1]
-        thread_count[topic[0]] = len(threads.get_list(topic[0]))
         links_t[topic[0]] = ({"name": f"{topic[1]}", "url": f"/topic?topic_id={topic[0]}" })
-        
+
+        #checks if there is a topic where there are no messages, starting position
+        if not (m_count[topic[0]] == 0 or m_count[topic[1]] == 0 or m_count[topic[2]] == 0):
+            last_m_list[topic[0]] = messages.get_list_by_topic(topic[0])[-1]
+            thread_count[topic[0]] = len(threads.get_list(topic[0]))
+
+    #default site where there is a topic which has no messages
+    if m_count[topic[0]] == 0 or m_count[topic[1]] == 0 or m_count[topic[2]] == 0:
+            default = ('0', 'default', datetime(2023, 11, 11, 00, 00, 00, 000000), 1)
+            return render_template("index.html", topics=topics,
+                           m_count=0, last_m=default,
+                           thread_count=0,
+                           links=links_t)
         
     return render_template("index.html", 
                            topics=topics,

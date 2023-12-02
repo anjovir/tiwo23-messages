@@ -95,3 +95,8 @@ Versio 0.4
    - kaikki aihealueet generoituvat tietokannan sisällön perusteella
    - luotu tähän uusi topic.html sivu
    - hiottu ulkoasua
+
+Versio 0.4.1
+   - muokattu roolitauluja ja user tauluja, luotu yhteys
+   - päivitetty metodit huomioiden taulurakenteen korjaukset
+   - korjattu bugeja sivujen käyttöönottoon liittyviä bugeja

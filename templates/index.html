@@ -18,9 +18,13 @@
         <td>Number of threads: {{ thread_count[topic[0]] }} <br>
             Number of messages: {{ m_count[topic[0]]}}
         </td>
-        <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
-            by: {{ last_m[topic[0]][1] }} 
-        </td>
+        {% if last_m[0] == "0" %}
+            <td>No posts</td>
+        {% else %}
+            <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
+                by: {{ last_m[topic[0]][1] }} 
+            </td>
+        {% endif %}
     </tr>
     {% endfor %}
     

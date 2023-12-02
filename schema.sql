@@ -1,8 +1,13 @@
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    role TEXT
+);
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
     password TEXT,
-    role TEXT
+    role_id INTEGER REFERENCES roles
 );
 
 CREATE TABLE topics (
@@ -27,10 +32,7 @@ CREATE TABLE messages (
     topic_id INTEGER REFERENCES topics ON DELETE CASCADE
 );
 
-CREATE TABLE roles (
-    id SERIAL PRIMARY KEY,
-    role TEXT
-);
+
 
 INSERT INTO topics (topic) VALUES ('general');
 INSERT INTO topics (topic) VALUES ('politics');
