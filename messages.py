@@ -15,6 +15,11 @@ def get_list_by_topic(topic_id):
     result = db.session.execute(sql, {"topic_id":topic_id})
     return result.fetchall()
 
+def get_topics_list():
+    sql = text("SELECT * FROM topics")
+    result = db.session.execute(sql)
+    return result.fetchall()
+
 def get_list_by_thread(thread_id):
     sql = text("""SELECT M.content, U.username, M.sent_at, M.thread_id, M.topic_id, M.user_id, M.id
                FROM messages M, users U 

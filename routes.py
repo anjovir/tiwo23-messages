@@ -5,46 +5,32 @@ from datetime import datetime
 
 
 
-
 @app.route("/")
 def index():
-    users.create_admin()
+    topics = messages.get_topics_list()
+    last_m_list = {}
+    m_count = {}
+    thread_count = {}
+    links_t = {}
 
-    list1 = messages.get_list_by_topic(1)
-    list2 = messages.get_list_by_topic(2)
-    list3 = messages.get_list_by_topic(3)
-    default = ('0', 'default', datetime(2023, 11, 11, 00, 00, 00, 000000), 1)
-
-    #intial situation, if no topics and messages added to db
-    if len(list1) == 0 or len(list2) == 0 or len(list3) == 0:
-        return render_template("index.html", count1=len(list1), last_m1=default,
-                               count2=len(list2), last_m2=default,
-                               count3=len(list3), last_m3=default)
+    for topic in topics:
+        m_count[topic[0]] = len(messages.get_list_by_topic(topic[0]))
+        last_m_list[topic[0]] = messages.get_list_by_topic(topic[0])[-1]
+        thread_count[topic[0]] = len(threads.get_list(topic[0]))
+        links_t[topic[0]] = ({"name": f"{topic[1]}", "url": f"/topic?topic_id={topic[0]}" })
+        
+        
     return render_template("index.html", 
-                           count_threads1= len(threads.get_list(1)), count1=len(list1), last_m1=list1[-1],
-                           count_threads2=len(threads.get_list(2)), count2=len(list2), last_m2=list2[-1], 
-                            count_threads3=len(threads.get_list(3)), count3=len(list3), last_m3=list3[-1])
-
-@app.route("/general")
-def general():
-    list_t = threads.get_list(1)
-    last_m_list = {}
-    m_list = {}
-    links_t = {}
-
-    for thread in list_t:
-        m_list[thread[4]] = (messages.count_messages(thread[4]))[0]
-        last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
-        links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
-        
-    return render_template("general.html", 
-                           threads=list_t,
-                           m_count=m_list, last_m=last_m_list,
+                           topics=topics,
+                           m_count=m_count, last_m=last_m_list,
+                           thread_count=thread_count,
                            links=links_t)
 
-@app.route("/politics")
-def politics():
-    list_t = threads.get_list(2)
+
+@app.route("/topic")
+def topic():
+    list_t = threads.get_list(request.args.get("topic_id"))
+    topic_name = threads.get_topic_name(request.args.get("topic_id"))
     last_m_list = {}
     m_list = {}
     links_t = {}
@@ -54,26 +40,10 @@ def politics():
         last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
         links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
         
-    return render_template("politics.html", 
+    return render_template("topic.html", 
                            threads=list_t,
                            m_count=m_list, last_m=last_m_list,
-                           links=links_t)
-
-@app.route("/economy")
-def economy():
-    list_t = threads.get_list(3)
-    last_m_list = {}
-    m_list = {}
-    links_t = {}
-
-    for thread in list_t:
-        m_list[thread[4]] = (messages.count_messages(thread[4]))[0]
-        last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
-        links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
-        
-    return render_template("economy.html", 
-                           threads=list_t,
-                           m_count=m_list, last_m=last_m_list,
+                           topic_name=topic_name,
                            links=links_t)
 
 @app.route("/thread")

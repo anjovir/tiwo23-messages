@@ -88,3 +88,10 @@ Versio 0.3.1
 Versio 0.3.2
    - luotu huono tapa, jolla luodaan admin-käyttäjä, mikäli sitä ei ole jo luotu
    - ympäristömuuttuja määritetty admin-salasanalle
+
+Versio 0.4
+   - yksinkertaistettu sivurakennetta
+   - poistettu erilliset staattiset eri aihealueiden sivut (general, politics, economy)
+   - kaikki aihealueet generoituvat tietokannan sisällön perusteella
+   - luotu tähän uusi topic.html sivu
+   - hiottu ulkoasua

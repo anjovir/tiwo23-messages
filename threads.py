@@ -12,6 +12,11 @@ def get_thread(thread_id):
     result = db.session.execute(sql, {"thread_id":thread_id})
     return result.fetchone()
 
+def get_topic_name(topic_id):
+    sql = text("SELECT T.topic FROM topics T WHERE T.id=:topic_id")
+    result = db.session.execute(sql, {"topic_id":topic_id})
+    return result.fetchone()
+
 def edit_t(t_id, thread):
     user_id = users.user_id()
     if user_id == 0:

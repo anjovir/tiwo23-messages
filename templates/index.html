@@ -9,42 +9,21 @@
 <h1>FORUM</h1>
 
 <table>
+    {% for topic in topics %}
     <tr>
-        <td><a href="/general">General</a></td>
-        <td>Number of threads: {{ count_threads1 }} <br>
-            Number of messages: {{ count1 }}
+        <td>
+            <a href="{{ links[topic[0]].url }}">{{ links[topic[0]].name|upper }}</a>
+            
         </td>
-        {% if count1 == 0 %}
-        <td>Last post: No posts</td>
-        {% else %}
-        <td>Last post: {{ last_m1[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
-            by: {{ last_m1[1] }}</td>
-        {% endif %}
-    </tr>
-    <tr>
-        <td><a href="/politics">Politics</a></td>
-        <td>Number of threads: {{ count_threads2 }} <br>
-            Number of messages: {{ count2 }}
+        <td>Number of threads: {{ thread_count[topic[0]] }} <br>
+            Number of messages: {{ m_count[topic[0]]}}
         </td>
-        {% if count2 == 0 %}
-        <td>Last post: No posts</td>
-        {% else %}
-        <td>Last post: {{ last_m2[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
-            by: {{ last_m2[1] }}</td>
-        {% endif %}
-    </tr>
-    <tr>
-        <td><a href="/economy">Economy</a></td>
-        <td>Number of threads: {{ count_threads3 }} <br>
-            Number of messages: {{ count3 }}
+        <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
+            by: {{ last_m[topic[0]][1] }} 
         </td>
-        {% if count3 == 0 %}
-        <td>Last post: No posts</td>
-        {% else %}
-        <td>Last post: {{ last_m3[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
-            by: {{ last_m3[1] }}</td>
-        {% endif %}
     </tr>
+    {% endfor %}
+    
 
 </table>
 <br>

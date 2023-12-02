@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="/static/stylesheet.css">
     </head>
     <body>
-        <h2>{{ thread[0] }}</h2>
+        <h2>{{ thread[0]|upper }}</h2>
         {% if session.user_id == thread[3] %}
         <div style="display: flex;">
             <form action="/edit_t" method="POST">
