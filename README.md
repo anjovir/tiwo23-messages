@@ -99,4 +99,7 @@ Versio 0.4
 Versio 0.4.1
    - muokattu roolitauluja ja user tauluja, luotu yhteys
    - päivitetty metodit huomioiden taulurakenteen korjaukset
-   - korjattu bugeja sivujen käyttöönottoon liittyviä bugeja
+   - korjattu sivujen käyttöönottoon liittyviä bugeja
+
+Versio 0.4.2
+   - korjattu rekisteröitymiseen liittyvä bugi

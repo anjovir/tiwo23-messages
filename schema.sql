@@ -32,8 +32,6 @@ CREATE TABLE messages (
     topic_id INTEGER REFERENCES topics ON DELETE CASCADE
 );
 
-
-
 INSERT INTO topics (topic) VALUES ('general');
 INSERT INTO topics (topic) VALUES ('politics');
 INSERT INTO topics (topic) VALUES ('economy');
