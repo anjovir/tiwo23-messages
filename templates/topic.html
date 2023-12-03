@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="/static/stylesheet.css">
     </head>
 <body>
-<h2>{{ topic_name[0]|upper }}</h2>
+<h2>{{ topic[0]|upper }}</h2>
 <table>
     <thead>
         <td><b>Subject / Started by:</b></td>
@@ -31,9 +31,15 @@
 {% if session.user_id %}
 Logged in.
 <br>
+<div style="display: flex;">
+    <form action="/new_thread" method="POST">
+        <input type="hidden" name="topic_id" value="{{ topic[1] }}">
+        <button type="submit">New thread</button>
+    </form>
+</div>
 
 <br>
-<a href="/">Main page</a> | <a href="/new_thread">New thread</a> | <a href="/logout">Log out</a>
+<a href="/">Main page</a> | <a href="/logout">Log out</a>
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}

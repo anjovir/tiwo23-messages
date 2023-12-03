@@ -15,23 +15,19 @@ def index():
     m_count = {}
     thread_count = {}
     links_t = {}
+    default = ('0', 'default', datetime(2023, 11, 11, 00, 00, 00, 000000), 1)
 
     for topic in topics:
         m_count[topic[0]] = len(messages.get_list_by_topic(topic[0]))
         links_t[topic[0]] = ({"name": f"{topic[1]}", "url": f"/topic?topic_id={topic[0]}" })
 
         #checks if there is a topic where there are no messages, starting position
-        if not (m_count[topic[0]] == 0 or m_count[topic[1]] == 0 or m_count[topic[2]] == 0):
+        if m_count[topic[0]] != 0 :
             last_m_list[topic[0]] = messages.get_list_by_topic(topic[0])[-1]
             thread_count[topic[0]] = len(threads.get_list(topic[0]))
-
-    #default site where there is a topic which has no messages
-    if m_count[topic[0]] == 0 or m_count[topic[1]] == 0 or m_count[topic[2]] == 0:
-            default = ('0', 'default', datetime(2023, 11, 11, 00, 00, 00, 000000), 1)
-            return render_template("index.html", topics=topics,
-                           m_count=0, last_m=default,
-                           thread_count=0,
-                           links=links_t)
+        else:
+            last_m_list[topic[0]] = default
+            thread_count[topic[0]] = 0
         
     return render_template("index.html", 
                            topics=topics,
@@ -43,7 +39,7 @@ def index():
 @app.route("/topic")
 def topic():
     list_t = threads.get_list(request.args.get("topic_id"))
-    topic_name = threads.get_topic_name(request.args.get("topic_id"))
+    topic = threads.get_topic(request.args.get("topic_id"))
     last_m_list = {}
     m_list = {}
     links_t = {}
@@ -52,11 +48,11 @@ def topic():
         m_list[thread[4]] = (messages.count_messages(thread[4]))[0]
         last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
         links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
-        
+
     return render_template("topic.html", 
                            threads=list_t,
                            m_count=m_list, last_m=last_m_list,
-                           topic_name=topic_name,
+                           topic=topic,
                            links=links_t)
 
 @app.route("/thread")
@@ -76,18 +72,24 @@ def send():
     else:
         return render_template("error.html", message="Failed to send the message")
     
-@app.route("/new_thread")
+@app.route("/new_thread", methods=["GET", "POST"])
 def new_thread():
-    return render_template("new_thread.html")
+    if request.method == "GET":
+        topic_id = request.args.get("topic_id")
+        return render_template("new_thread.html", topic_id=topic_id)
+    if request.method == "POST":
+        topic_id = request.form["topic_id"]
+        return redirect(f"/new_thread?topic_id={topic_id}")
+
     
 @app.route("/newt", methods=["POST"])
 def newt():
-    topic = request.form["topic"]
     thread = request.form["thread"]
     message = request.form["content"]
+    topic = request.form["topic_id"]
 
     if messages.newt(thread,message,topic):
-        return redirect("/")
+        return redirect(f"/topic?topic_id={topic}")
     else:
         return render_template("error.html", message="Failed to send the message")
 

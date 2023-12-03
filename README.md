@@ -103,3 +103,6 @@ Versio 0.4.1
 
 Versio 0.4.2
    - korjattu rekisteröitymiseen liittyvä bugi
+
+Versio 0.4.3.
+   - päivitetty keskusteluketjun luomiseen liittyvä toiminnallisuus
