@@ -55,7 +55,11 @@ def delete_topic():
     else:
         return render_template("error.html", message="Failed to send the message")
 
-
+@app.route("/search", methods=["GET"])
+def search():
+    query = request.args["query"]
+    result = messages.search(query)
+    return render_template("result.html", messages=result)
 
 @app.route("/topic")
 def topic():

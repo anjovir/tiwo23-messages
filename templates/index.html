@@ -49,7 +49,14 @@ Logged in.
         <textarea name="content" rows="1" cols="20"></textarea>
         <input type="submit" value="Send">
     </form>
+    <br>
     {% endif %}
+
+    <form action="/search" method="GET">
+        Hakusana: <input type="text" name="query">
+        <br>
+        <input type="submit" value="Search">
+    </form>    
 
 <br>
 <a href="/logout">Log out</a> | <a href="/change_password">Change password</a>

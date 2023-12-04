@@ -115,3 +115,6 @@ Versio 0.4.5
 
 Versio 0.4.6
    - lisätty adminille mahdollisuus poistaa keskusteluaihe ("topic") aloitussivulla
+
+Versio 0.4.7
+   - lisätty yksinkertainen hakutoiminto pääsivulle

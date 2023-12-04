@@ -78,3 +78,9 @@ def delete_m(m_id):
     db.session.commit()
     return True
     
+def search(query):
+    sql = text("""SELECT M.content, U.username, M.sent_at, T.thread 
+               FROM messages M, users U, threads T
+               WHERE LOWER(M.content) LIKE LOWER(:query) AND M.user_id=U.id AND M.thread_id=T.id""")
+    result = db.session.execute(sql, {"query":"%"+query+"%"})
+    return result.fetchall()
