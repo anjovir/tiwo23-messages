@@ -112,3 +112,6 @@ Versio 0.4.4
 
 Versio 0.4.5
    - lisätty adminille mahdollisuus luoda uusi keskusteluaihe ("topic") aloitussivulla
+
+Versio 0.4.6
+   - lisätty adminille mahdollisuus poistaa keskusteluaihe ("topic") aloitussivulla

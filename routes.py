@@ -47,6 +47,13 @@ def add_topic():
         return render_template("error.html", message="Failed to send the message")
     
 
+@app.route("/delete_topic", methods=["POST"])
+def delete_topic():
+    topic_id = request.form["topic_id"]
+    if topics.delete_topic(topic_id):
+        return redirect("/")
+    else:
+        return render_template("error.html", message="Failed to send the message")
 
 
 
