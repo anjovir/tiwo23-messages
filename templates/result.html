@@ -1,0 +1,9 @@
+{% for message in messages %}
+        <p><i>Thread:</i> {{ message[3] }}</p>
+        <p><i>Message:</i> {{ message[0] }}</p>
+        <i>By:</i> {{ message[1] }}
+        <i>On:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+<hr>
+{% endfor %}
+<br>
+<a href="/">Main page</a>
