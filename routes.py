@@ -59,7 +59,13 @@ def delete_topic():
 def search():
     query = request.args["query"]
     result = messages.search(query)
-    return render_template("result.html", messages=result)
+    print(result)
+    thread_links = {}
+
+    for m in result:
+        thread_links[m[4]] = ({"name": f"{m[3]}", "url": f"/thread?thread_id={m[4]}" })
+
+    return render_template("result.html", messages=result, thread_links=thread_links)
 
 @app.route("/topic")
 def topic():

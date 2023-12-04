@@ -14,7 +14,7 @@ Sovelluksen ominaisuuksia:
    8. Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
 
 Valmiina:
-   - Kohdat 1-5, 7
+   - Kohdat 1-7
 
 Testaus:
    - kopioi repositorio
@@ -118,3 +118,7 @@ Versio 0.4.6
 
 Versio 0.4.7
    - lisätty yksinkertainen hakutoiminto pääsivulle
+
+Versio 0.4.8
+   - lisätty löydettyihin hakuihin linkit keskusteluketjuun
+   - lisätty ilmoitus, mikäli haku ei tuota tulosta

@@ -1,9 +1,15 @@
-{% for message in messages %}
-        <p><i>Thread:</i> {{ message[3] }}</p>
-        <p><i>Message:</i> {{ message[0] }}</p>
-        <i>By:</i> {{ message[1] }}
-        <i>On:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+{% if not messages %}
+<h3>No messages found!</h3>
 <hr>
-{% endfor %}
+{% else %}
+
+    {% for message in messages %}
+            <p><i>Thread:</i> <a href="{{ thread_links[message[4]].url }}">{{ thread_links[message[4]].name }}</a></p>
+            <p><i>Message:</i> {{ message[0] }}</p>
+            <i>By:</i> {{ message[1] }}
+            <i>On:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+    <hr>
+    {% endfor %}
+{% endif %}
 <br>
 <a href="/">Main page</a>
