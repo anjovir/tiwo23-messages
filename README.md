@@ -109,3 +109,6 @@ Versio 0.4.3.
 
 Versio 0.4.4
    - lisätty metodi, jolla tarkistetaan, onko käyttäjä admin-roolissa
+
+Versio 0.4.5
+   - lisätty adminille mahdollisuus luoda uusi keskusteluaihe ("topic") aloitussivulla

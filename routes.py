@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
-import messages, users, threads
+import messages, users, threads, topics
 from datetime import datetime
 
 
@@ -37,6 +37,17 @@ def index():
                            thread_count=thread_count,
                            links=links_t,
                            is_admin=is_admin)
+
+@app.route("/add_topic", methods=["POST"])
+def add_topic():
+    content = request.form["content"]
+    if topics.add_topic(content):
+        return redirect("/")
+    else:
+        return render_template("error.html", message="Failed to send the message")
+    
+
+
 
 
 @app.route("/topic")

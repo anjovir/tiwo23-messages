@@ -62,6 +62,8 @@ def create_admin():
         db.session.commit()
 
 def check_if_admin(user_id):
+    if user_id == 0:
+        return False
     sql = text("""  SELECT R.role
                     FROM users U
                     LEFT JOIN roles R ON U.role_id = R.id

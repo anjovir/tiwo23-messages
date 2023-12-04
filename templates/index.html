@@ -34,6 +34,15 @@
 {% if session.user_id %}
 Logged in.
 <br>
+    {% if is_admin %}
+    <h3>Add topic</h3>
+    <form action="/add_topic" method="POST">
+        Topic: 
+        <textarea name="content" rows="1" cols="20"></textarea>
+        <input type="submit" value="Send">
+    </form>
+    {% endif %}
+
 <br>
 <a href="/logout">Log out</a> | <a href="/change_password">Change password</a>
 {% else %}
