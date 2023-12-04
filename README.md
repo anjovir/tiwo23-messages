@@ -106,3 +106,6 @@ Versio 0.4.2
 
 Versio 0.4.3.
    - päivitetty keskusteluketjun luomiseen liittyvä toiminnallisuus
+
+Versio 0.4.4
+   - lisätty metodi, jolla tarkistetaan, onko käyttäjä admin-roolissa

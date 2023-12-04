@@ -61,4 +61,18 @@ def create_admin():
         db.session.execute(sql, {"username":admin_username, "password":hash_value})
         db.session.commit()
 
+def check_if_admin(user_id):
+    sql = text("""  SELECT R.role
+                    FROM users U
+                    LEFT JOIN roles R ON U.role_id = R.id
+                    WHERE U.id=:user_id;
+                    """)
+
+    result = db.session.execute(sql, {"user_id":user_id})
+    result = result.fetchone()[0]
+    if result == "admin":
+        return True
+    return False
+
+
 

@@ -28,12 +28,15 @@ def index():
         else:
             last_m_list[topic[0]] = default
             thread_count[topic[0]] = 0
+    
+    is_admin = users.check_if_admin(users.user_id())
         
     return render_template("index.html", 
                            topics=topics,
                            m_count=m_count, last_m=last_m_list,
                            thread_count=thread_count,
-                           links=links_t)
+                           links=links_t,
+                           is_admin=is_admin)
 
 
 @app.route("/topic")
