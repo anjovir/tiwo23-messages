@@ -47,6 +47,7 @@ Logged in.
     <form action="/add_topic" method="POST">
         Topic: 
         <textarea name="content" rows="1" cols="20"></textarea>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <input type="submit" value="Send">
     </form>
     <br>

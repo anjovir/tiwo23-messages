@@ -55,6 +55,7 @@
                 <br>
                 <input type="submit" value="Update">
                 <input type="hidden" name="t_id" value="{{ messages[0][3] }}">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
             
             {% else %}
@@ -68,6 +69,7 @@
                     <input type="submit" value="Update">
                     <input type="hidden" name="thread_id" value="{{ messages[0][3] }}">
                     <input type="hidden" name="m_id" value="{{ m_edit[1] }}">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
 
                 {% else %}
@@ -81,6 +83,7 @@
                     <input type="submit" value="Send">
                     <input type="hidden" name="thread_id" value="{{ messages[0][3]  }}">
                     <input type="hidden" name="topic_id" value="{{ messages[0][4] }}">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
 
                 {% endif %}

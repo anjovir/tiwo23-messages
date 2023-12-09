@@ -1,8 +1,9 @@
 from db import db
-from flask import session
+from flask import session, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.sql import text
 from os import getenv
+import secrets
 
 def login(username, password):
     sql = text("SELECT id, password FROM users WHERE username=:username")
@@ -13,12 +14,14 @@ def login(username, password):
     else:
         if check_password_hash(user.password, password):
             session["user_id"] = user.id
+            session["csrf_token"] = secrets.token_hex(16)
             return True
         else:
             return False
 
 def logout():
     del session["user_id"]
+    del session["csrf_token"]
 
 def register(username, password):
     hash_value = generate_password_hash(password)
@@ -32,6 +35,10 @@ def register(username, password):
 
 def user_id():
     return session.get("user_id",0)
+
+def check_csfr(csfr_token):
+    if session["csrf_token"] != csfr_token:
+        abort(403)
 
 def change_password(user_id, old_password, new_password):
     sql = text("SELECT id, password FROM users WHERE id=:user_id")
@@ -48,7 +55,7 @@ def change_password(user_id, old_password, new_password):
     return True
 
 def create_admin():
-    admin_username = "admin"
+    admin_username = 'admin'
     admin_password = getenv("ADMIN_PASSWORD")
 
     sql = text("SELECT id FROM users WHERE role_id='2'")

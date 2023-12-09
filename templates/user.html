@@ -7,6 +7,7 @@
     New password again: <input type="password" name="password2">
     <p>
     <input type="submit" value="Change password">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="hidden" name="user_id" value="{{ session.user_id }}">
     </form>
 {% endif %}

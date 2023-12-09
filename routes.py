@@ -4,7 +4,6 @@ import messages, users, threads, topics
 from datetime import datetime
 
 
-
 @app.route("/")
 def index():
     #will create admin, if not already created
@@ -21,7 +20,7 @@ def index():
         m_count[topic[0]] = len(messages.get_list_by_topic(topic[0]))
         links_t[topic[0]] = ({"name": f"{topic[1]}", "url": f"/topic?topic_id={topic[0]}" })
 
-        #checks if there is a topic where there are no messages, starting position
+        #checks if there is a topic where there are no messages
         if m_count[topic[0]] != 0 :
             last_m_list[topic[0]] = messages.get_list_by_topic(topic[0])[-1]
             thread_count[topic[0]] = len(threads.get_list(topic[0]))
@@ -41,6 +40,7 @@ def index():
 @app.route("/add_topic", methods=["POST"])
 def add_topic():
     content = request.form["content"]
+    users.check_csfr(request.form["csrf_token"])
     if topics.add_topic(content):
         return redirect("/")
     else:
@@ -59,7 +59,6 @@ def delete_topic():
 def search():
     query = request.args["query"]
     result = messages.search(query)
-    print(result)
     thread_links = {}
 
     for m in result:
@@ -97,6 +96,7 @@ def send():
     content = request.form["content"]
     thread_id = request.form["thread_id"]
     topic_id = request.form["topic_id"]
+    users.check_csfr(request.form["csrf_token"])
 
     if messages.send(content, thread_id, topic_id):
         return redirect(f"/thread?thread_id={thread_id}")
@@ -118,6 +118,7 @@ def newt():
     thread = request.form["thread"]
     message = request.form["content"]
     topic = request.form["topic_id"]
+    users.check_csfr(request.form["csrf_token"])
 
     if messages.newt(thread,message,topic):
         return redirect(f"/topic?topic_id={topic}")
@@ -138,6 +139,7 @@ def edit_message():
     thread_id = request.form["thread_id"]
     content = request.form["content"]
     m_id = int(request.form["m_id"])
+    users.check_csfr(request.form["csrf_token"])
     
     if messages.edit_m(m_id, content):
         return redirect(f"/thread?thread_id={thread_id}")
@@ -165,6 +167,7 @@ def edit_t():
 def edit_thread():
     thread_id = request.form["t_id"]
     thread = request.form["thread"]
+    users.check_csfr(request.form["csrf_token"])
 
     if threads.edit_t(thread_id, thread):
         return redirect(f"/thread?thread_id={thread_id}")
@@ -220,6 +223,7 @@ def change_password():
         password0 = request.form["password0"]
         password1 = request.form["password1"]
         password2 = request.form["password2"]
+        users.check_csfr(request.form["csrf_token"])
         if password1 != password2:
             return render_template("error.html", message="Passwords differ")
         if users.change_password(user_id,password0,password1):
