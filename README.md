@@ -122,3 +122,6 @@ Versio 0.4.7
 Versio 0.4.8
    - lisätty löydettyihin hakuihin linkit keskusteluketjuun
    - lisätty ilmoitus, mikäli haku ei tuota tulosta
+
+Versio 0.4.9
+   - korjattu csfr-haavoittuvuus
