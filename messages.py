@@ -29,7 +29,7 @@ def get_list_by_thread(thread_id):
     return result.fetchall()
 
 def count_messages(thread_id):
-    sql = text("SELECT COUNT(*) FROM threads WHERE id=:thread_id")
+    sql = text("SELECT COUNT(*) FROM messages WHERE thread_id=:thread_id")
     result = db.session.execute(sql, {"thread_id":thread_id})
     return result.fetchone()
 

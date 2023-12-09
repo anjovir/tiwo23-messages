@@ -125,3 +125,6 @@ Versio 0.4.8
 
 Versio 0.4.9
    - korjattu csfr-haavoittuvuus
+
+V 0.4.9.1
+   - korjattu bugi, jossa näkyi väärä määrä viestejä per keskusteluketju
