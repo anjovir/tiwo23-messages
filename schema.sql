@@ -12,7 +12,8 @@ CREATE TABLE users (
 
 CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
-    topic TEXT UNIQUE
+    topic TEXT UNIQUE,
+    is_secret BOOLEAN
 );
 
 CREATE TABLE threads (
@@ -31,6 +32,12 @@ CREATE TABLE messages (
     thread_id INTEGER REFERENCES threads ON DELETE CASCADE,
     topic_id INTEGER REFERENCES topics ON DELETE CASCADE
 );
+
+CREATE TABLE secret_room (
+    id SERIAL PRIMARY KEY,
+    topic_id INTEGER REFERENCES topics ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE
+)
 
 INSERT INTO topics (topic) VALUES ('general');
 INSERT INTO topics (topic) VALUES ('politics');

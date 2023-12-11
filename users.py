@@ -83,5 +83,38 @@ def check_if_admin(user_id):
         return True
     return False
 
+def list_sroom_users(topic_id):
+    sql = text("SELECT U.username, U.id, S.topic_id FROM secret_room S, Users U WHERE S.user_id=U.id AND topic_id=:topic_id")
+    result = db.session.execute(sql, {"topic_id":topic_id})
+    return result.fetchall()
 
+def list_all_sroom_users():
+    sql = text("SELECT U.username, U.id, S.topic_id FROM secret_room S, Users U WHERE S.user_id=U.id")
+    result = db.session.execute(sql)
+    return result.fetchall()
 
+def list_users():
+    sql = text("SELECT id, username FROM users")
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+def max_id():
+    sql = text("SELECT MAX(id) FROM users")
+    result = db.session.execute(sql)
+    return result.fetchone()
+
+def add_user(topic_id, user_id):
+    if user_id == 0:
+        return False
+    sql = text("INSERT INTO secret_room (topic_id, user_id) VALUES (:topic_id, :user_id)")
+    db.session.execute(sql, {"topic_id":topic_id, "user_id":user_id})
+    db.session.commit()
+    return True
+
+def remove_user(topic_id, user_id):
+    if user_id == 0:
+        return False
+    sql = text("DELETE FROM secret_room WHERE topic_id=:topic_id AND user_id=:user_id")
+    db.session.execute(sql, {"topic_id":topic_id, "user_id":user_id})
+    db.session.commit()
+    return True

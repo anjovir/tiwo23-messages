@@ -10,6 +10,7 @@
 
 <table>
     {% for topic in topics %}
+    {% if is_admin %}
     <tr>
         <td>
             <a href="{{ links[topic[0]].url }}">{{ links[topic[0]].name|upper }}</a>
@@ -25,15 +26,50 @@
                 by: {{ last_m[topic[0]][1] }} 
             </td>
         {% endif %}
-        {% if is_admin %}
         <td>
             <form action="/delete_topic" method="POST">
                 <input type="hidden" name="topic_id" value="{{ topic[0] }}">
                 <button type="submit">Delete thread</button>
             </form>
-        </td>
-        {% endif %}
+        </td>    
     </tr>
+    {% else %}
+        {% if topic[2] == False %}
+        <tr>
+            <td>
+                <a href="{{ links[topic[0]].url }}">{{ links[topic[0]].name|upper }}</a>      
+            </td>
+            <td>Number of threads: {{ thread_count[topic[0]] }} <br>
+                Number of messages: {{ m_count[topic[0]]}}
+            </td>
+            {% if last_m[0] == "0" %}
+                <td>No posts</td>
+            {% else %}
+                <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
+                    by: {{ last_m[topic[0]][1] }} 
+                </td>
+            {% endif %}
+        </tr>
+        {% elif topic[2] == True and session.user_id is defined %}
+            {% if sroom_user_list[session.user_id][1] == topic[0] %}
+            <tr>
+                <td>
+                    <a href="{{ links[topic[0]].url }}">{{ links[topic[0]].name|upper }}</a>      
+                </td>
+                <td>Number of threads: {{ thread_count[topic[0]] }} <br>
+                    Number of messages: {{ m_count[topic[0]]}}
+                </td>
+                {% if last_m[0] == "0" %}
+                    <td>No posts</td>
+                {% else %}
+                    <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
+                        by: {{ last_m[topic[0]][1] }} 
+                    </td>
+                {% endif %}
+            </tr>
+            {% endif %}
+        {% endif %}
+    {% endif %}
     {% endfor %}
     
 
@@ -43,11 +79,13 @@
 Logged in.
 <br>
     {% if is_admin %}
-    <h3>Add topic</h3>
+    <h3>Add a public or secret topic</h3>
     <form action="/add_topic" method="POST">
         Topic: 
         <textarea name="content" rows="1" cols="20"></textarea>
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <input type="radio" name="is_secret" value="False">Public
+        <input type="radio" name="is_secret" value="True">Private
         <input type="submit" value="Send">
     </form>
     <br>

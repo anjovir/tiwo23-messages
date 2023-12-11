@@ -29,19 +29,35 @@ def index():
             thread_count[topic[0]] = 0
     
     is_admin = users.check_if_admin(users.user_id())
+
+    #this will check if the user is a member of some secret room
+    sroom_user_list = users.list_all_sroom_users()
+    sroom_user = {}
+    
+    for i in range(users.max_id()[0]+1):
+        sroom_user[i] = (None,None)
+
+    for user in sroom_user_list:
+        sroom_user[user[1]] = (user[0],user[2])
         
     return render_template("index.html", 
                            topics=topics,
                            m_count=m_count, last_m=last_m_list,
                            thread_count=thread_count,
                            links=links_t,
-                           is_admin=is_admin)
+                           is_admin=is_admin,
+                           sroom_user_list=sroom_user)
 
 @app.route("/add_topic", methods=["POST"])
 def add_topic():
-    content = request.form["content"]
     users.check_csfr(request.form["csrf_token"])
-    if topics.add_topic(content):
+    content = request.form["content"]
+    is_secret = request.form["is_secret"]
+    if is_secret == "True":
+        is_secret = True
+    else:
+        is_secret = False
+    if topics.add_topic(content,is_secret):
         return redirect("/")
     else:
         return render_template("error.html", message="Failed to send the message")
@@ -79,12 +95,49 @@ def topic():
         last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
         links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
 
-    print(m_list)
     return render_template("topic.html", 
                            threads=list_t,
                            m_count=m_list, last_m=last_m_list,
                            topic=topic,
                            links=links_t)
+
+@app.route("/sroom_users", methods=["GET","POST"])
+def sroom_users():
+    if request.method == "GET":
+        topic_id = request.args.get("topic_id")
+        sroom_user_list = users.list_sroom_users(topic_id)
+        user_list = users.list_users()
+        sroom_user = {}
+    
+        for i in range(users.max_id()[0]+1):
+            sroom_user[i] = (None,topic_id)
+
+        for user in sroom_user_list:
+            sroom_user[user[1]] = (user[0],user[2])
+        
+        return render_template("sroom_users.html", topic_id=topic_id, sroom_user_list=sroom_user, user_list=user_list)
+    
+    if request.method == "POST":
+        topic_id = request.form["topic_id"]
+        return redirect(f"/sroom_users?topic_id={topic_id}")
+
+@app.route("/add_member", methods=["POST"])
+def add_member():
+    topic_id = request.form["topic_id"]
+    user_id = request.form["user_id"]
+    if users.add_user(topic_id, user_id):
+        return redirect(f"/sroom_users?topic_id={topic_id}")
+    return render_template("error.html", message="Failed to add user")
+
+@app.route("/remove_member", methods=["POST"])
+def remove_member():
+    topic_id = request.form["topic_id"]
+    user_id = request.form["user_id"]
+    if users.remove_user(topic_id, user_id):
+        return redirect(f"/sroom_users?topic_id={topic_id}")
+    return render_template("error.html", message="Failed to add user")
+    
+
 
 @app.route("/thread")
 def thread():

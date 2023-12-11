@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset utf-8></meta>
+        <title>Forum</title>
+        <link rel="stylesheet" href="/static/stylesheet.css">
+    </head>
+    <body>
+        <h2>Secret room users</h2>
+        <table>
+            <thead>
+                <td><b>User</b></td>
+                <td><b>Is a member</b></td>
+                <td><b>Add or remove membership</b></td>
+            </thead>
+            <tbody>
+            {% for user in user_list %}
+                <tr>
+                    <td>{{ user[1] }}</td>
+                    
+                    {% if user[1] == (sroom_user_list[user[0]])[0] %}
+                    <td>Yes</td>
+                        {% if user[1] == "admin" %}
+                        <td>Admin</td>
+                        {% else %}
+                        <td>
+                            <form action="/remove_member" method="POST">
+                                <input type="hidden" name="topic_id" value="{{ sroom_user_list[user[0]][1] }}">
+                                <input type="hidden" name="user_id" value="{{ user[0] }}">
+                                <button type="submit">Remove</button>
+                            </form>
+                        </td>
+                        {% endif %}
+                    {%  else %}
+                    <td>No</td>
+                    <td>
+                        <form action="/add_member" method="POST">
+                            <input type="hidden" name="topic_id" value="{{ (sroom_user_list[user[0]])[1] }}">
+                            <input type="hidden" name="user_id" value="{{ user[0] }}">
+                            <button type="submit">Add</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="/">Main page</a>
+        
+    </body>
+
+</html>

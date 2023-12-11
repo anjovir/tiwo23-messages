@@ -31,15 +31,22 @@
 {% if session.user_id %}
 Logged in.
 <br>
+<br>
 <div style="display: flex;">
     <form action="/new_thread" method="POST">
         <input type="hidden" name="topic_id" value="{{ topic[1] }}">
         <button type="submit">New thread</button>
     </form>
-</div>
-    
 
+    {% if topic[2] == True %}
+    <form action="/sroom_users" method="POST">
+        <input type="hidden" name="topic_id" value="{{ topic[1] }}">
+        <button type="submit">Manage secret room</button>
+    </form>
+    {% endif %}
+</div>
 <br>
+
 <a href="/">Main page</a> | <a href="/logout">Log out</a>
 {% else %}
 <a href="/login">Log in</a>
