@@ -92,6 +92,9 @@ def topic():
 
     is_admin = users.check_if_admin(users.user_id())
     
+    if topic[2]:
+        users.check_membership(topic[1], users.user_id())
+    
     sroom_user = {}
     for i in range(users.max_id()[0]+1):
         sroom_user[i] = (None,None)
@@ -124,6 +127,7 @@ def sroom_users():
         sroom_user_list = users.list_sroom_users(topic_id)
         user_list = users.list_users()
         sroom_user = {}
+        
         is_admin = users.check_if_admin(users.user_id())
     
         for i in range(users.max_id()[0]+1):
@@ -158,10 +162,14 @@ def remove_member():
 def thread():
     list = messages.get_list_by_thread(request.args.get("thread_id"))
     thread = threads.get_thread(request.args.get("thread_id"))
+
+    print(topics.is_secret(thread[4]))
+    if topics.is_secret(thread[4]):
+        users.check_membership(thread[4], users.user_id())
+
     if len(list) == 0:
         list = [('0', 'default', datetime(1111, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4]),
                 ('0', 'default', datetime(2222, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4])]
-
 
     return render_template("thread.html",count=len(list), messages=list, thread=thread, m_edit=None, edit_t=None)
 
@@ -206,6 +214,8 @@ def edit():
     message = messages.get_message(m_id)
     list = messages.get_list_by_thread(thread_id)
     thread = threads.get_thread(thread_id)
+    if topics.is_secret(thread[4]):
+        users.check_membership(thread[4], users.user_id())
 
     return render_template("thread.html", count=len(list), messages=list, thread=thread, m_edit=message, edit_t=None)
 
@@ -240,6 +250,9 @@ def edit_t():
     if len(list) == 0:
         list = [('0', 'default', datetime(1111, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4]),
                 ('0', 'default', datetime(2222, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4])]
+    
+    if topics.is_secret(thread[4]):
+        users.check_membership(thread[4], users.user_id())
 
     return render_template("thread.html", count=len(list), messages=list, thread=thread, edit_t=thread, m_edit=None)
 

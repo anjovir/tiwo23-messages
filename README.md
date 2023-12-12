@@ -140,3 +140,6 @@ V 0.5.1
 
 v 0.5.2
    - korjattu bugi, jossa keskusteluketjun otsikkoa ei pystynyt muokkaamaan / poistamaan, mikäli viestien määrä oli 0
+
+v 0.5.3
+   - korjattu bugi, jossa salaiseen huoneeseen pääsi kirjautumaan, vaikka ei ollut käyttäjä tai sen jäsen

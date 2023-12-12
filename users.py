@@ -40,6 +40,15 @@ def check_csfr(csfr_token):
     if session["csrf_token"] != csfr_token:
         abort(403)
 
+def check_membership(topic_id, user_id):
+    sql = text("SELECT user_id, topic_id FROM secret_room WHERE user_id=:user_id AND topic_id=:topic_id")
+    result = db.session.execute(sql, {"user_id":user_id, "topic_id":topic_id})
+
+    if result.fetchone() is None:
+        abort(403)
+
+    
+
 def change_password(user_id, old_password, new_password):
     sql = text("SELECT id, password FROM users WHERE id=:user_id")
     result = db.session.execute(sql, {"user_id":user_id})

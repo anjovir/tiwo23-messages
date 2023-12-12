@@ -32,3 +32,8 @@ def create_secret_room(topic_id):
     db.session.execute(sql, {"topic_id":topic_id, "user_id":user_id})
     db.session.commit()
     return True
+
+def is_secret(topic_id):
+    sql = text("SELECT is_secret FROM topics WHERE id=:topic_id")
+    result = db.session.execute(sql, {"topic_id":topic_id})
+    return result.fetchone()[0]
