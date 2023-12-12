@@ -10,19 +10,19 @@
             {% if session.user_id == thread[3] %}
             <div style="display: flex;">
                 <form action="/edit_t" method="POST">
-                    <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                    <input type="hidden" name="t_id" value="{{ thread[5]  }}">
                     <input type="hidden" name="thread" value="{{ thread[0]  }}">
                     <button type="submit">Edit thread</button>
                 </form>
             
                 <form action="/delete_thread" method="POST">
-                    <input type="hidden" name="t_id" value="{{ messages[0][3]  }}">
+                    <input type="hidden" name="t_id" value="{{ thread[5]  }}">
                     <button type="submit">Delete thread</button>
                 </form>
             </div>
             {% endif %}
             <hr>
-            {% if messages[0] == "0" %}
+            {% if messages[0][0] == "0" %}
             <p>No posts!</p>
             {% else %}
                 {% for message in messages %}
@@ -58,7 +58,7 @@
                 <textarea name="thread" rows="1" cols="30">{{ edit_t[0] }}</textarea>
                 <br>
                 <input type="submit" value="Update">
-                <input type="hidden" name="t_id" value="{{ messages[0][3] }}">
+                <input type="hidden" name="t_id" value="{{ thread[5] }}">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
             
@@ -85,13 +85,8 @@
             
                 <br>
                 <input type="submit" value="Send">
-                {% if messages[0] == "0" %}
-                    <input type="hidden" name="thread_id" value="{{ messages[3]  }}">
-                    <input type="hidden" name="topic_id" value="{{ messages[4] }}">
-                {% else %}
-                    <input type="hidden" name="thread_id" value="{{ messages[0][3]  }}">
-                    <input type="hidden" name="topic_id" value="{{ messages[0][4] }}">
-                {% endif %}
+                <input type="hidden" name="thread_id" value="{{ messages[0][3]  }}">
+                <input type="hidden" name="topic_id" value="{{ messages[0][4] }}">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
             

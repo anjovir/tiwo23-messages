@@ -137,3 +137,6 @@ V 0.5
 V 0.5.1
    - korjattu salaisen huoneen bugi, jossa kuka tahansa käyttäjä pystyi lisäämään / poistamaan jäseniä
    - korjattu bugi, jossa keskusteluketju ja viestiketju eivät toimineet, mikäli viestin määrä on 0
+
+v 0.5.2
+   - korjattu bugi, jossa keskusteluketjun otsikkoa ei pystynyt muokkaamaan / poistamaan, mikäli viestien määrä oli 0

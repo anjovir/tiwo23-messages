@@ -159,8 +159,8 @@ def thread():
     list = messages.get_list_by_thread(request.args.get("thread_id"))
     thread = threads.get_thread(request.args.get("thread_id"))
     if len(list) == 0:
-        list = ('0', 'default', datetime(1111, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"),thread[4])
-    print(list)
+        list = [('0', 'default', datetime(1111, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4]),
+                ('0', 'default', datetime(2222, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4])]
 
 
     return render_template("thread.html",count=len(list), messages=list, thread=thread, m_edit=None, edit_t=None)
@@ -237,12 +237,17 @@ def edit_t():
     list = messages.get_list_by_thread(thread_id)
     thread = threads.get_thread(thread_id)
 
+    if len(list) == 0:
+        list = [('0', 'default', datetime(1111, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4]),
+                ('0', 'default', datetime(2222, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"), thread[4])]
+
     return render_template("thread.html", count=len(list), messages=list, thread=thread, edit_t=thread, m_edit=None)
 
 @app.route("/edit_thread", methods=["POST"])
 def edit_thread():
     thread_id = request.form["t_id"]
     thread = request.form["thread"]
+    print(thread_id)
     users.check_csfr(request.form["csrf_token"])
 
     if threads.edit_t(thread_id, thread):
