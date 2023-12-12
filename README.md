@@ -128,3 +128,12 @@ Versio 0.4.9
 
 V 0.4.9.1
    - korjattu bugi, jossa näkyi väärä määrä viestejä per keskusteluketju
+
+V 0.5
+   - lisätty salainen huone, joka näkyy vain määritetyille käyttäjille
+   - admin pystyy lisäämään / poistamaan käyttäjiä huoneesta
+   - huone näkyy index-sivulla vain sen jäsenille
+
+V 0.5.1
+   - korjattu salaisen huoneen bugi, jossa kuka tahansa käyttäjä pystyi lisäämään / poistamaan jäseniä
+   - korjattu bugi, jossa keskusteluketju ja viestiketju eivät toimineet, mikäli viestin määrä on 0

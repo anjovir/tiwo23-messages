@@ -90,16 +90,32 @@ def topic():
     m_list = {}
     links_t = {}
 
+    is_admin = users.check_if_admin(users.user_id())
+    
+    sroom_user = {}
+    for i in range(users.max_id()[0]+1):
+        sroom_user[i] = (None,None)
+    
+    sroom_user_list = users.list_sroom_users(topic[1])
+    for user in sroom_user_list:
+        sroom_user[user[1]] = (user[0],user[2])
+
+    default = ('0', 'default', datetime(1111, 11, 11, 11, 11, 11, 111111), 1)
+    
     for thread in list_t:
         m_list[thread[4]] = (messages.count_messages(thread[4]))[0]
-        last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
+        try:
+            last_m_list[thread[4]] = messages.get_list_by_thread(thread[4])[-1]
+        except:
+            last_m_list[thread[4]] = default
         links_t[thread[4]] = ({"name": f"{thread[0]}", "url": f"/thread?thread_id={thread[4]}" })
 
     return render_template("topic.html", 
                            threads=list_t,
                            m_count=m_list, last_m=last_m_list,
                            topic=topic,
-                           links=links_t)
+                           links=links_t,
+                           is_admin=is_admin, sroom_user_list=sroom_user)
 
 @app.route("/sroom_users", methods=["GET","POST"])
 def sroom_users():
@@ -108,6 +124,7 @@ def sroom_users():
         sroom_user_list = users.list_sroom_users(topic_id)
         user_list = users.list_users()
         sroom_user = {}
+        is_admin = users.check_if_admin(users.user_id())
     
         for i in range(users.max_id()[0]+1):
             sroom_user[i] = (None,topic_id)
@@ -115,7 +132,7 @@ def sroom_users():
         for user in sroom_user_list:
             sroom_user[user[1]] = (user[0],user[2])
         
-        return render_template("sroom_users.html", topic_id=topic_id, sroom_user_list=sroom_user, user_list=user_list)
+        return render_template("sroom_users.html", topic_id=topic_id, sroom_user_list=sroom_user, user_list=user_list, is_admin=is_admin)
     
     if request.method == "POST":
         topic_id = request.form["topic_id"]
@@ -136,13 +153,16 @@ def remove_member():
     if users.remove_user(topic_id, user_id):
         return redirect(f"/sroom_users?topic_id={topic_id}")
     return render_template("error.html", message="Failed to add user")
-    
-
 
 @app.route("/thread")
 def thread():
     list = messages.get_list_by_thread(request.args.get("thread_id"))
     thread = threads.get_thread(request.args.get("thread_id"))
+    if len(list) == 0:
+        list = ('0', 'default', datetime(1111, 11, 11, 11, 11, 11, 111111), request.args.get("thread_id"),thread[4])
+    print(list)
+
+
     return render_template("thread.html",count=len(list), messages=list, thread=thread, m_edit=None, edit_t=None)
 
 @app.route("/send", methods=["POST"])
@@ -186,6 +206,7 @@ def edit():
     message = messages.get_message(m_id)
     list = messages.get_list_by_thread(thread_id)
     thread = threads.get_thread(thread_id)
+
     return render_template("thread.html", count=len(list), messages=list, thread=thread, m_edit=message, edit_t=None)
 
 @app.route("/edit_message", methods=["POST"])
@@ -215,6 +236,7 @@ def edit_t():
     thread_id = request.form["t_id"]
     list = messages.get_list_by_thread(thread_id)
     thread = threads.get_thread(thread_id)
+
     return render_template("thread.html", count=len(list), messages=list, thread=thread, edit_t=thread, m_edit=None)
 
 @app.route("/edit_thread", methods=["POST"])

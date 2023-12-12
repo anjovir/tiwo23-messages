@@ -14,6 +14,7 @@
                 <td><b>Add or remove membership</b></td>
             </thead>
             <tbody>
+            {% if is_admin %}
             {% for user in user_list %}
                 <tr>
                     <td>{{ user[1] }}</td>
@@ -44,6 +45,8 @@
                 </tr>
             </tbody>
             {% endfor %}
+            {% endif %}
+
         </table>
         <br>
         <a href="/">Main page</a>
