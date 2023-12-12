@@ -14,16 +14,38 @@
         <td><b>Last post</b></td>
     </thead>
     <tbody>
-    {% for thread in threads %}
-    <tr>
-        <td>
-            <a href="{{ links[thread[4]].url }}">{{ links[thread[4]].name }}</a> / <br>
-            {{ thread[1] }}
-        </td>
-        <td>{{ m_count[thread[4]]}}</td>
-        <td>{{ last_m[thread[4]][2].strftime("%Y-%m-%d %H:%M:%S") }}</td>
-    </tr>
-    {% endfor %}
+    {% if session.user_id is defined and topic[2] == True %}
+        {% if sroom_user_list[session.user_id][1] == topic[1] %}
+        {% for thread in threads %}
+        <tr>
+            <td>
+                <a href="{{ links[thread[4]].url }}">{{ links[thread[4]].name }}</a> / <br>
+                {{ thread[1] }}
+            </td>
+            <td>{{ m_count[thread[4]]}}</td>
+            
+            {% if m_count[thread[4]] == 0 %}
+            <td>No posts!</td>
+            
+            {% else %}
+            <td>{{ last_m[thread[4]][2].strftime("%Y-%m-%d %H:%M:%S") }}</td>
+            {% endif %}    
+        </tr>
+        {% endfor %}
+        {% endif %}
+    {% else %}
+        {% for thread in threads %}
+        <tr>
+            <td>
+                <a href="{{ links[thread[4]].url }}">{{ links[thread[4]].name }}</a> / <br>
+                {{ thread[1] }}
+            </td>
+            <td>{{ m_count[thread[4]]}}</td>
+            <td>{{ last_m[thread[4]][2].strftime("%Y-%m-%d %H:%M:%S") }}</td>
+        </tr>
+        {% endfor %}
+        
+    {% endif %}
     </tbody>
 </table>
 <br>
@@ -38,7 +60,7 @@ Logged in.
         <button type="submit">New thread</button>
     </form>
 
-    {% if topic[2] == True %}
+    {% if topic[2] == True and is_admin %}
     <form action="/sroom_users" method="POST">
         <input type="hidden" name="topic_id" value="{{ topic[1] }}">
         <button type="submit">Manage secret room</button>

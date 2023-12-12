@@ -8,7 +8,7 @@ def get_list(topic_id):
     return result.fetchall()
 
 def get_thread(thread_id):
-    sql = text("SELECT T.thread, U.username, T.created_at, U.id FROM threads T, users U WHERE T.user_id=U.id AND T.id=:thread_id ORDER BY T.id")
+    sql = text("SELECT T.thread, U.username, T.created_at, U.id, T.topic_id FROM threads T, users U WHERE T.user_id=U.id AND T.id=:thread_id ORDER BY T.id")
     result = db.session.execute(sql, {"thread_id":thread_id})
     return result.fetchone()
 
