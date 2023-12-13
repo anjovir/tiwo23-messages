@@ -19,7 +19,7 @@
         <td>Number of threads: {{ thread_count[topic[0]] }} <br>
             Number of messages: {{ m_count[topic[0]]}}
         </td>
-        {% if last_m[0] == "0" %}
+        {% if last_m[topic[0]][0] == "0" %}
             <td>No posts</td>
         {% else %}
             <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
@@ -29,7 +29,7 @@
         <td>
             <form action="/delete_topic" method="POST">
                 <input type="hidden" name="topic_id" value="{{ topic[0] }}">
-                <button type="submit">Delete thread</button>
+                <button type="submit">Delete topic</button>
             </form>
         </td>    
     </tr>
@@ -42,7 +42,7 @@
             <td>Number of threads: {{ thread_count[topic[0]] }} <br>
                 Number of messages: {{ m_count[topic[0]]}}
             </td>
-            {% if last_m[0] == "0" %}
+            {% if last_m[topic[0]][0] == "0" %}
                 <td>No posts</td>
             {% else %}
                 <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
@@ -59,7 +59,7 @@
                 <td>Number of threads: {{ thread_count[topic[0]] }} <br>
                     Number of messages: {{ m_count[topic[0]]}}
                 </td>
-                {% if last_m[0] == "0" %}
+                {% if last_m[topic[0]][0] == "0" %}
                     <td>No posts</td>
                 {% else %}
                     <td>Last post: {{ last_m[topic[0]][2].strftime("%Y-%m-%d %H:%M:%S") }} <br> 
