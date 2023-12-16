@@ -143,3 +143,6 @@ v 0.5.2
 
 v 0.5.3
    - korjattu bugi, jossa salaiseen huoneeseen pääsi kirjautumaan, vaikka ei ollut käyttäjä tai sen jäsen
+
+v 0.5.3.1
+   - korjattu käyttöönoton yhteydessä esiintyvä tietokantabugi
