@@ -28,7 +28,6 @@ def index():
             last_m_list[topic[0]] = default
             thread_count[topic[0]] = 0
     
-    print(last_m_list[topic[0]][0])
     is_admin = users.check_if_admin(users.user_id())
 
     #this will check if the user is a member of some secret room

@@ -78,7 +78,8 @@ def create_admin():
         db.session.commit()
 
 def check_if_admin(user_id):
-    if user_id == 0:
+    print(user_id)
+    if user_id == 0 or user_id == None:
         return False
     sql = text("""  SELECT R.role
                     FROM users U
