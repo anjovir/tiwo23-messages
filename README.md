@@ -15,12 +15,13 @@ Sovelluksen ominaisuuksia:
 
 Valmiina:
    - Kohdat 1-8
+   - aika loppui kesken koodin optimoimisen ja siistimisen suhteen
 
 Testaus:
    - kopioi repositorio
    - luo .env tiedosto, sinne tulee luoda SECRET_KEY esim. komennolla python3 -> import secrets -> secret.token_hex(16)
    - lisäksi sinne tulee määrittää tietokannan osoite, esim. DATABASE_URL="postgresql:///your_db_name"
-   - Admin-käyttäjän salasana tulee myös lisä .env-tiedostoon, kohtaan ADMIN_PASSWORD="oma_salasana"
+   - Admin-käyttäjän salasana tulee myös lisätä .env-tiedostoon, kohtaan ADMIN_PASSWORD="oma_salasana"
    - venv-ympäristö käyttöön komennolla python3 -m venv venv -> source/bin/activate
    - aja pip install -r requirements.txt
    - luo tietokanta käyttäen sql-skeemaa: psql < schema.sql
